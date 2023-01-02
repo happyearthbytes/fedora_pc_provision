@@ -1,0 +1,3 @@
+[] update provision directory to use ansible to provision the PC - manual invokation
+[] Update Makefile to call the provision scripts
+[] update k3s to run and configure traefik
