@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: k3sn
+  name: k3sn
+spec:
+  containers:
+  - command:
+    - sh
+    - -c
+    # - "sleep 10000"
+    - "id && ls -l /sys/fs/ && ls -l /sys/fs/cgroup && sleep 1 && k3s --debug agent --token aaa --server https://k3s-server:6443 --kubelet-arg=cgroup-driver=systemd"
+      # - sleep
+      # - "10000"
+    # - k3s
+    # - agent
+    # - --token
+    # - aaa
+    # - --server
+    # - https://k3s-server:6443
+    name: worker
+    image: k3s:worker
+    ports:
+    - containerPort: 6442
+      hostPort: 6442
+      protocol: TCP
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    securityContext:
+      privileged: true
+    #   allowPrivilegeEscalation: false
+    volumeMounts:
+    - mountPath: /run
+      name: tempfs
+      subPath: run
+    - mountPath: /var/run
+      name: tempfs
+      subPath: var-run
+  restartPolicy: Never
+  volumes:
+    - name: k3s-volume
+      PersistentVolumeClaim:
+        claimName: k3s-volume-claim
+    - name: k3s-host
+      hostPath:
+        path: /Users/josephdipilato/Documents/thing/repos/project-template/containers/cluster
+        type: Directory
+    - name: tempfs
+      emptyDir:
+        medium: Memory
+        sizeLimit: 64Mi

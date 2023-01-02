@@ -1,0 +1,8 @@
+FROM rockylinux:9 as os_layer
+FROM os_layer as install
+
+RUN dnf -y install epel-release
+RUN dnf -y install ShellCheck
+
+FROM scratch as minimal
+COPY --from=install /usr/bin/shellcheck /

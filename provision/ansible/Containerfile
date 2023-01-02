@@ -1,0 +1,6 @@
+# syntax = docker/dockerfile:experimental
+FROM alpine as OS
+
+RUN apk add python3 py3-pip
+RUN --mount=type=cache,target=/root/.cache/pip python3 -m pip install ansible
+ENV ANSIBLE_CONFIG=/localhost/ansible/ansible.cfg
