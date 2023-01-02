@@ -17,6 +17,7 @@
 
 # (path) The default root path for Ansible config files on the controller.
 ;home=~/.ansible
+home=/tmp/.ansible
 
 # (boolean) This setting allows suppressing colorizing output, which is used to give a better indication of failure and status information.
 ;nocolor=False
@@ -162,13 +163,14 @@
 
 # (tmppath) Temporary directory for Ansible to use on the controller.
 ;local_tmp={{ ANSIBLE_HOME ~ "/tmp" }}
+local_tmp=/tmp/.ansible
 
 # (list) List of logger names to filter out of the log file
 ;log_filter=
 
 # (path) File to which Ansible will log on the controller. When empty logging is disabled.
 ;log_path=
-log_path = ~/.ansible/ansible.log
+log_path=/tmp/.ansible/ansible.log
 
 # (pathspec) Colon separated paths in which Ansible will search for Lookup Plugins.
 ;lookup_plugins={{ ANSIBLE_HOME ~ "/plugins/lookup:/usr/share/ansible/plugins/lookup" }}
@@ -208,6 +210,7 @@ log_path = ~/.ansible/ansible.log
 
 # (path) Option for connections using a certificate or key file to authenticate, rather than an agent or passwords, you can set the default value here to avoid re-specifying --private-key with every invocation.
 ;private_key_file=
+private_key_file=/ssh/id_rsa
 
 # (boolean) Makes role variables inaccessible from other roles.
 # This was introduced as a way to reset role variables to default values if a role is used more than once in a playbook.
@@ -278,7 +281,7 @@ stdout_callback=yaml
 ;vault_password_file=
 
 # (integer) Sets the default verbosity, equivalent to the number of ``-v`` passed in the command line.
-verbosity=1
+verbosity=4
 
 # (boolean) Toggle to control the showing of deprecation warnings
 ;deprecation_warnings=True
@@ -318,7 +321,7 @@ verbosity=1
 ;facts_modules=smart
 
 # (boolean) Set this to "False" if you want to avoid host key checking by the underlying tools Ansible uses to connect to the host
-;host_key_checking=True
+host_key_checking=False
 
 # (boolean) Facts are available inside the `ansible_facts` variable, this setting also pushes them as their own vars in the main namespace.
 # Unlike inside the `ansible_facts` dictionary, these will have an `ansible_` prefix.
@@ -464,7 +467,7 @@ verbosity=1
 
 # (path) Path to socket to be used by the connection persistence system.
 ;control_path_dir={{ ANSIBLE_HOME ~ "/pc" }}
-
+control_path_dir=/tmp/cp
 
 [connection]
 # (boolean) This is a global option, each connection plugin can override either by having more specific options or not supporting pipelining at all.

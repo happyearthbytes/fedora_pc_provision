@@ -1,9 +1,12 @@
 # syntax = docker/dockerfile:experimental
 FROM alpine as OS
 
-RUN apk add python3 py3-pip
+RUN apk add python3 py3-pip openssh-client
 RUN --mount=type=cache,target=/root/.cache/pip python3 -m pip install ansible
 RUN mkdir -p /etc/ansible && \
     ansible-config init --disabled > /etc/ansible/ansible.cfg
+RUN mkdir -p /tmp/.ansible/cp/ && chmod 777 -R /tmp
 ENV ANSIBLE_CONFIG=/localhost/ansible/ansible.cfg
-
+ENV ANSIBLE_HOME=/tmp
+ENV HOME=/tmp
+USER 1000

@@ -1,0 +1,6 @@
+  - name: Playbook
+    hosts: local_machine
+    tasks:
+      - name: aaa
+        debug:
+          msg: "hi"

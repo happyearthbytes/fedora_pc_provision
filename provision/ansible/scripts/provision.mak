@@ -1,6 +1,7 @@
+.PHONY: provision
+
 provision: ## Provision
-	@./provision/ansible/scripts/provision.shprovision-test: # test Provision
-	@./provision/ansible/scripts/test.sh
+	@./provision/ansible/scripts/provision.sh
 provision-test: # Test Provision
 	@./provision/ansible/scripts/test.sh
 provision-build: # Provision build image

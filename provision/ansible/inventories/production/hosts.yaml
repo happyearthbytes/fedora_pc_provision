@@ -1,0 +1,8 @@
+all:
+  hosts:
+    localhost:
+  children:
+    local_machine:
+      hosts:
+        192.168.1.192
+  
