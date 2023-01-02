@@ -26,7 +26,8 @@ endif
 THIS_FILE=$(shell echo $(MAKEFILE_LIST) | cut -f1 -d' ')
 OTHER_FILE=$(shell echo $(MAKEFILE_LIST) | awk '{ $$1=""; print $0}' )
 
-_ECHO_FLAG="" #"-e"
+# TODO: convert this to a shell command to identify version that don't accept -e
+_ECHO_FLAG="-e"
 
 default: help-default
 help-default: # Display default make command options
@@ -34,9 +35,13 @@ help-default: # Display default make command options
 	@echo ""
 	@grep -E "^[0-9a-zA-Z_-]+:.*?## .*$$" $(THIS_FILE) | awk 'BEGIN {FS = ":.*?## "}; {printf "$(TEXT_ITEM)$(TEXT_BOLD)%-30s$(TEXT_RESET) %s\n", $$1, $$2}'
 	@echo ""
-	@grep -E "^[0-9a-zA-Z_-]+:.*?## .*$$" $(OTHER_FILE) | sed 's/[^:]*://' | awk 'BEGIN {FS = ":.*?## "}; {printf "$(TEXT_ITEM)%-30s$(TEXT_RESET) %s\n", $$1, $$2}'
+	@for FILES in $(OTHER_FILE); do echo "$${FILES}" | sed -n -e 's|.*/\(.*\).mak|\1|' -e ''s/.*/`printf "$(TEXT_ITALIC)&:$(TEXT_RESET)"`/p''; grep -E "^[0-9a-zA-Z_-]+:.*?## .*$$" $${FILES} | awk 'BEGIN {FS = ":.*?## "}; {printf "$(TEXT_ITEM)$(TEXT_BOLD)%-30s$(TEXT_RESET) %s\n", $$1, $$2}'; done
 	@echo ""
 help: help-default ## Display make command options
+	@echo ${_ECHO_FLAG} "$(TEXT_BOLD)${TEXT_UNDER}Files:$(TEXT_RESET)"
+	@echo ""
+	@echo $(OTHER_FILE) | tr ' ' '\n'
+	@echo ""
 	@echo ${_ECHO_FLAG} "$(TEXT_BOLD)${TEXT_UNDER}Variables:$(TEXT_RESET)"
 	@echo ""
 	@grep -E "^[0-9a-zA-Z_-]+ *:= *[^#]*## .*$$" $(THIS_FILE) | awk 'BEGIN {FS = ":="}; {printf "$(TEXT_ITEM)$(TEXT_SPECIAL)%-30s$(TEXT_RESET) %s\n", $$1, $$2}'
@@ -45,7 +50,7 @@ help: help-default ## Display make command options
 	@echo ""
 	@grep -E "^[0-9a-zA-Z_-]+:[^#]*# .*$$" $(THIS_FILE) | awk 'BEGIN {FS = ":.*?# "}; {printf "$(TEXT_BAD)$(TEXT_BOLD)%-30s$(TEXT_RESET) %s\n", $$1, $$2}'
 	@echo ""
-	@grep -E "^[0-9a-zA-Z_-]+:[^#]*# .*$$" $(OTHER_FILE) | sed 's/[^:]*://' | awk 'BEGIN {FS = ":.*?# "}; {printf "$(TEXT_BAD)%-30s$(TEXT_RESET) %s\n", $$1, $$2}'
+	@for FILES in $(OTHER_FILE); do echo "$${FILES}" | sed -n -e 's|.*/\(.*\).mak|\1|' -e ''s/.*/`printf "$(TEXT_ITALIC)&:$(TEXT_RESET)"`/p''; grep -E "^[0-9a-zA-Z_-]+:[^#]*# .*$$" $${FILES} | awk 'BEGIN {FS = ":.*?# "}; {printf "$(TEXT_BAD)%-30s$(TEXT_RESET) %s\n", $$1, $$2}'; done
 	@echo ""
 	@grep -E "^[0-9a-zA-Z_-]+:[^#]*$$" $(THIS_FILE) | awk 'BEGIN {FS = ":.* "}; {printf "$(TEXT_BAD)$(TEXT_BOLD)%-30s$(TEXT_RESET) ${TEXT_ITALIC}%s$(TEXT_RESET)\n", $$1, $$2}'
 	@echo ""
@@ -57,14 +62,14 @@ help: help-default ## Display make command options
 	@echo ""
 
 text-demo: # display a text demo
-	@echo "${TEXT_WARNING}TEXT_WARNING$(TEXT_RESET)"
-	@echo "${TEXT_ERROR}TEXT_ERROR$(TEXT_RESET)"
-	@echo "${TEXT_INFO}TEXT_INFO$(TEXT_RESET)"
-	@echo "${TEXT_BOLD}TEXT_BOLD$(TEXT_RESET)"
-	@echo "${TEXT_ITALIC}TEXT_ITALIC$(TEXT_RESET)"
-	@echo "${TEXT_UNDER}TEXT_UNDER$(TEXT_RESET)"
-	@echo "${TEXT_GOOD}TEXT_GOOD$(TEXT_RESET)"
-	@echo "${TEXT_BAD}TEXT_BAD$(TEXT_RESET)"
-	@echo "${TEXT_ITEM}TEXT_ITEM$(TEXT_RESET)"
-	@echo "${TEXT_SPECIAL}TEXT_SPECIAL$(TEXT_RESET)"
-	@echo "${TEXT_CONTRAST}TEXT_CONTRAST$(TEXT_RESET)"
+	@echo ${_ECHO_FLAG} "${TEXT_WARNING}TEXT_WARNING$(TEXT_RESET)"
+	@echo ${_ECHO_FLAG} "${TEXT_ERROR}TEXT_ERROR$(TEXT_RESET)"
+	@echo ${_ECHO_FLAG} "${TEXT_INFO}TEXT_INFO$(TEXT_RESET)"
+	@echo ${_ECHO_FLAG} "${TEXT_BOLD}TEXT_BOLD$(TEXT_RESET)"
+	@echo ${_ECHO_FLAG} "${TEXT_ITALIC}TEXT_ITALIC$(TEXT_RESET)"
+	@echo ${_ECHO_FLAG} "${TEXT_UNDER}TEXT_UNDER$(TEXT_RESET)"
+	@echo ${_ECHO_FLAG} "${TEXT_GOOD}TEXT_GOOD$(TEXT_RESET)"
+	@echo ${_ECHO_FLAG} "${TEXT_BAD}TEXT_BAD$(TEXT_RESET)"
+	@echo ${_ECHO_FLAG} "${TEXT_ITEM}TEXT_ITEM$(TEXT_RESET)"
+	@echo ${_ECHO_FLAG} "${TEXT_SPECIAL}TEXT_SPECIAL$(TEXT_RESET)"
+	@echo ${_ECHO_FLAG} "${TEXT_CONTRAST}TEXT_CONTRAST$(TEXT_RESET)"
