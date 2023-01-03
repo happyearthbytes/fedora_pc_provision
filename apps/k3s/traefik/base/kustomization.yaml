@@ -10,9 +10,23 @@
 #
 ############################################################################### 
 
-namespace: <TODO>
-commonLabels: <TODO>
-roles: <TODO>
+#namespace: Modify_if_desired
+#commonLabels: Modify_if_desired
+#roles: Modify_if_desired
 resources:
-— <TODO>.yaml
-— <TODO>.yaml
+- crds/ingressroute.yaml
+- crds/ingressroutetcp.yaml
+- crds/ingressrouteudp.yaml
+- crds/middlewares.yaml
+- crds/middlewarestcp.yaml
+- crds/serverstransports.yaml
+- crds/tlsoptions.yaml
+- crds/tlsstores.yaml
+- crds/traefikservices.yaml
+- dashboard-hook-ingressroute.yaml
+- deployment.yaml
+- ingressclass.yaml
+- rbac/clusterrole.yaml
+- rbac/clusterrolebinding.yaml
+- rbac/serviceaccount.yaml
+- service.yaml

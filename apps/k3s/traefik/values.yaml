@@ -108,7 +108,7 @@ ingressClass:
 # Enable experimental features
 experimental:
   v3:
-    enabled: false
+    enabled: true
   plugins:
     enabled: false
   kubernetesGateway:
@@ -542,23 +542,23 @@ ports:
     # You SHOULD NOT expose the traefik port on production deployments.
     # If you want to access it from outside of your cluster,
     # use `kubectl port-forward` or create a secure ingress
-    expose: false
+    expose: true
     # The exposed port for this service
     exposedPort: 9000
     # The port protocol (TCP/UDP)
     protocol: TCP
   web:
     ## Enable this entrypoint as a default entrypoint. When a service doesn't explicity set an entrypoint it will only use this entrypoint.
-    # asDefault: true
+    # asDefault:
     port: 8000
-    # hostPort: 8000
+    hostPort: 80
     expose: true
     exposedPort: 80
     # The port protocol (TCP/UDP)
     protocol: TCP
     # Use nodeport if set. This is useful if you have configured Traefik in a
     # LoadBalancer.
-    # nodePort: 32080
+    nodePort: 32080
     # Port Redirections
     # Added in 2.2, you can make permanent redirects via entrypoints.
     # https://docs.traefik.io/routing/entrypoints/#redirection

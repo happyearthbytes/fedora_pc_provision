@@ -1,0 +1,16 @@
+---
+# Source: traefik/templates/dashboard-hook-ingressroute.yaml
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-web-ingress
+  namespace: default
+spec:
+  entryPoints:
+  - web
+  routes:
+  - match: PathPrefix(`/dashboard2`) || PathPrefix(`/api2`)
+    kind: Rule
+    services:
+    - name: api@internal
+      kind: TraefikService

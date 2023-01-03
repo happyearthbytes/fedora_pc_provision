@@ -3,15 +3,15 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: release-name-traefik-dashboard
+  name: traefik-dashboard
   namespace: default
   annotations:
     helm.sh/hook: "post-install,post-upgrade"
-    meta.helm.sh/release-name: release-name
+    meta.helm.sh/release-name: traefik
     meta.helm.sh/release-namespace: default
   labels:
     app.kubernetes.io/name: traefik
-    app.kubernetes.io/instance: release-name-default
+    app.kubernetes.io/instance: traefik-default
     helm.sh/chart: traefik-20.8.0
     app.kubernetes.io/managed-by: Helm
 spec:

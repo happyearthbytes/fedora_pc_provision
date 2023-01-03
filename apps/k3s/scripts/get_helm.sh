@@ -53,13 +53,18 @@ create_template() {
         exit 0
     fi
     helm template \
-      --generate-name=true \
+      --include-crds \
       --output-dir ${YAML_BASE} \
       --values ${PROJECT}/values.yaml \
       --wait \
+      ${CHART_NAME} \
       ${CHART_SELECTOR}/${CHART_NAME}
 
-    mv ${YAML_BASE_TMP_PROJ}/templates/* ${YAML_BASE} && rm -rf ${YAML_BASE_TMP_PROJ}
+    mv ${YAML_BASE_TMP_PROJ}/templates/* ${YAML_BASE}
+    mv ${YAML_BASE_TMP_PROJ}/crds ${YAML_BASE}
+    rm -rf ${YAML_BASE_TMP_PROJ}
+}
+remove_charts() {
     echo "Removing: ${TMP_CHARTS}"
     rm -rf ${TMP_CHARTS}
 }
@@ -239,6 +244,7 @@ main() {
     download_chart
     create_template
     create_kustomization
+    remove_charts
 }
 
 main "$@"

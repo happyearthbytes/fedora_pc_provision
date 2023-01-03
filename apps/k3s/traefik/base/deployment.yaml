@@ -3,11 +3,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: release-name-traefik
+  name: traefik
   namespace: default
   labels:
     app.kubernetes.io/name: traefik
-    app.kubernetes.io/instance: release-name-default
+    app.kubernetes.io/instance: traefik-default
     helm.sh/chart: traefik-20.8.0
     app.kubernetes.io/managed-by: Helm
   annotations:
@@ -16,7 +16,7 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: traefik
-      app.kubernetes.io/instance: release-name-default
+      app.kubernetes.io/instance: traefik-default
   strategy: 
     rollingUpdate:
       maxSurge: 1
@@ -31,17 +31,17 @@ spec:
         prometheus.io/port: "9100"
       labels:
         app.kubernetes.io/name: traefik
-        app.kubernetes.io/instance: release-name-default
+        app.kubernetes.io/instance: traefik-default
         helm.sh/chart: traefik-20.8.0
         app.kubernetes.io/managed-by: Helm
     spec:
-      serviceAccountName: release-name-traefik
+      serviceAccountName: traefik
       terminationGracePeriodSeconds: 60
       hostNetwork: false
       containers:
       - image: traefik:v2.9.6
         imagePullPolicy: IfNotPresent
-        name: release-name-traefik
+        name: traefik
         resources:
         readinessProbe:
           httpGet:
@@ -73,6 +73,7 @@ spec:
           protocol: "TCP"
         - name: "web"
           containerPort: 8000
+          hostPort: 80
           protocol: "TCP"
         - name: "websecure"
           containerPort: 8443
