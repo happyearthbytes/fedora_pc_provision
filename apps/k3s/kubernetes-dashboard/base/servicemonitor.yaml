@@ -13,31 +13,3 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  name: kubernetes-dashboard
-  labels:
-    
-    app.kubernetes.io/name: kubernetes-dashboard
-    helm.sh/chart: kubernetes-dashboard-6.0.0
-    app.kubernetes.io/instance: kubernetes-dashboard
-    app.kubernetes.io/version: "2.7.0"
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/component: kubernetes-dashboard
-  annotations:
-spec:
-  endpoints:
-    - port: https
-      scheme: https
-      tlsConfig:
-        insecureSkipVerify: true
-      path: /metrics
-  selector:
-    matchLabels:
-      
-      app.kubernetes.io/name: kubernetes-dashboard
-      helm.sh/chart: kubernetes-dashboard-6.0.0
-      app.kubernetes.io/instance: kubernetes-dashboard
-      app.kubernetes.io/version: "2.7.0"
-      app.kubernetes.io/managed-by: Helm

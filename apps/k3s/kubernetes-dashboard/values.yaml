@@ -349,8 +349,10 @@ podSecurityPolicy:
 
 serviceMonitor:
   # Whether or not to create a Prometheus Operator service monitor.
-  enabled: true
+  enabled: false
   ## Here labels can be added to the serviceMonitor
   labels: {}
   ## Here annotations can be added to the serviceMonitor
   annotations: {}
+
+fullnameOverride: 'kubernetes-dashboard'

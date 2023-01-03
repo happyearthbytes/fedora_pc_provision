@@ -22,7 +22,7 @@ metadata:
   labels:
     app.kubernetes.io/name: kubernetes-dashboard
     helm.sh/chart: kubernetes-dashboard-6.0.0
-    app.kubernetes.io/instance: kubernetes-dashboard
+    app.kubernetes.io/instance: release-name
     app.kubernetes.io/version: "2.7.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: kubernetes-dashboard
@@ -37,7 +37,7 @@ spec:
     matchLabels:
 
       app.kubernetes.io/name: kubernetes-dashboard
-      app.kubernetes.io/instance: kubernetes-dashboard
+      app.kubernetes.io/instance: release-name
       app.kubernetes.io/component: kubernetes-dashboard
   template:
     metadata:
@@ -45,7 +45,7 @@ spec:
       labels:
         app.kubernetes.io/name: kubernetes-dashboard
         helm.sh/chart: kubernetes-dashboard-6.0.0
-        app.kubernetes.io/instance: kubernetes-dashboard
+        app.kubernetes.io/instance: release-name
         app.kubernetes.io/version: "2.7.0"
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: kubernetes-dashboard

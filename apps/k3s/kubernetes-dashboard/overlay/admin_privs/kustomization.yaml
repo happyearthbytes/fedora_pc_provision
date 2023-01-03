@@ -11,9 +11,8 @@ commonLabels:
 # - name: nginx
 #   newName: my.image.registry/nginx
 #   newTag: 1.4.0
-# patchesStrategicMerge:
-# - patch1.yaml
-# - patch2.yaml
+patchesStrategicMerge:
+- dashboard-admin.yaml
 # patchesJson6902:
 # - target:
 #     group: apps
