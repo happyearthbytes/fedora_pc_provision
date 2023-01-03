@@ -10,7 +10,7 @@
 #
 ############################################################################### 
 
-# namespace: kubernetes-dashboard
+#namespace: Modify_if_desired
 #commonLabels: Modify_if_desired
 #roles: Modify_if_desired
 resources:

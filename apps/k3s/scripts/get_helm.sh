@@ -53,12 +53,13 @@ create_template() {
         exit 0
     fi
     helm template \
-      --generate-name \
+      --generate-name=false \
       --output-dir ${YAML_BASE} \
       --values ${PROJECT}/values.yaml \
       --wait \
+      --release-name=false \
+      ${CHART_NAME} \
       ${CHART_SELECTOR}/${CHART_NAME}
-    #   --namespace ${NAMESPACE} \
 
     mv ${YAML_BASE_TMP_PROJ}/templates/* ${YAML_BASE} && rm -rf ${YAML_BASE_TMP_PROJ}
     echo "Removing: ${TMP_CHARTS}"

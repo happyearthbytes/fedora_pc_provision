@@ -15,7 +15,7 @@
 # Default values for kubernetes-dashboard
 # This is a YAML-formatted file.
 # Declare name/value pairs to be passed into your templates.
-# name: value
+name: kubernetes-dashboard
 
 image:
   ## Repository for container
@@ -226,9 +226,8 @@ ingress:
 
 # Global dashboard settings
 settings:
-  {}
   ## Cluster name that appears in the browser window title if it is set
-  # clusterName: ""
+  clusterName: "themachine-cluster"
   ## Max number of items that can be displayed on each list page
   # itemsPerPage: 10
   ## Number of seconds between every auto-refresh of logs
@@ -254,7 +253,7 @@ pinnedCRDs:
 ## refs: https://github.com/kubernetes-sigs/dashboard-metrics-scraper
 metricsScraper:
   ## Wether to enable dashboard-metrics-scraper
-  enabled: false
+  enabled: true
   image:
     repository: kubernetesui/metrics-scraper
     tag: v1.0.8
@@ -304,7 +303,7 @@ rbac:
   # access to persistentvolumes, pods/log etc.
   #
   # Independent from rbac.create parameter.
-  clusterReadOnlyRole: false
+  clusterReadOnlyRole: true
   # It is possible to add additional rules if read only role is enabled.
   # This can be useful, for example, to show CRD resources.
   # clusterReadOnlyRoleAdditionalRules: []

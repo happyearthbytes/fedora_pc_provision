@@ -17,12 +17,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: release-name-kubernetes-dashboard
+  name: kubernetes-dashboard
   annotations:
   labels:
     app.kubernetes.io/name: kubernetes-dashboard
     helm.sh/chart: kubernetes-dashboard-6.0.0
-    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/instance: kubernetes-dashboard
     app.kubernetes.io/version: "2.7.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: kubernetes-dashboard
@@ -37,7 +37,7 @@ spec:
     matchLabels:
 
       app.kubernetes.io/name: kubernetes-dashboard
-      app.kubernetes.io/instance: release-name
+      app.kubernetes.io/instance: kubernetes-dashboard
       app.kubernetes.io/component: kubernetes-dashboard
   template:
     metadata:
@@ -45,7 +45,7 @@ spec:
       labels:
         app.kubernetes.io/name: kubernetes-dashboard
         helm.sh/chart: kubernetes-dashboard-6.0.0
-        app.kubernetes.io/instance: release-name
+        app.kubernetes.io/instance: kubernetes-dashboard
         app.kubernetes.io/version: "2.7.0"
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: kubernetes-dashboard
@@ -54,7 +54,7 @@ spec:
 
         seccompProfile:
           type: RuntimeDefault
-      serviceAccountName: release-name-kubernetes-dashboard
+      serviceAccountName: kubernetes-dashboard
       containers:
       - name: kubernetes-dashboard
         image: "kubernetesui/dashboard:v2.7.0"
@@ -62,7 +62,7 @@ spec:
         args:
           - --namespace=default
           - --auto-generate-certificates
-          - --metrics-provider=none
+          - --sidecar-host=http://127.0.0.1:8000
         ports:
         - name: https
           containerPort: 8443
@@ -94,9 +94,31 @@ spec:
           readOnlyRootFilesystem: true
           runAsGroup: 2001
           runAsUser: 1001
+      - name: dashboard-metrics-scraper
+        image: "kubernetesui/metrics-scraper:v1.0.8"
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 8000
+            protocol: TCP
+        livenessProbe:
+          httpGet:
+            scheme: HTTP
+            path: /
+            port: 8000
+          initialDelaySeconds: 30
+          timeoutSeconds: 30
+        volumeMounts:
+        - mountPath: /tmp
+          name: tmp-volume
+        securityContext:
+
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          runAsGroup: 2001
+          runAsUser: 1001
       volumes:
       - name: kubernetes-dashboard-certs
         secret:
-          secretName: release-name-kubernetes-dashboard-certs
+          secretName: kubernetes-dashboard-certs
       - name: tmp-volume
         emptyDir: {}

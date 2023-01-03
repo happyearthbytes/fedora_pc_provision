@@ -13,3 +13,30 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kubernetes-dashboard
+  labels:
+    app.kubernetes.io/name: kubernetes-dashboard
+    helm.sh/chart: kubernetes-dashboard-6.0.0
+    app.kubernetes.io/instance: kubernetes-dashboard
+    app.kubernetes.io/version: "2.7.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    # Add https backend protocol support for ingress-nginx
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    # Add https backend protocol support for GKE
+    service.alpha.kubernetes.io/app-protocols: '{"https":"HTTPS"}'
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: kubernetes-dashboard
+                port:
+                  number: 443
