@@ -187,9 +187,9 @@ start_nvidia_k3s() {
         kubectl apply -f k3s/nvidia-namespace.yaml
 
         kubectl create cm -n nvidia-device-plugin nvidia-plugin-configs \
-            --from-file=config=k3s/nvidia-config.yaml
+            --from-file=config=k3s/nvidia/nvidia-config.yaml
 
-        kubectl apply -f k3s/nvidia-device-plugin.yml
+        kubectl apply -f k3s/nvidia/nvidia-device-plugin.yml
 
         label_filter="owner=joe"
         node_name=$(kubectl get nodes -l ${label_filter} --no-headers=true -o custom-columns=NAME:.metadata.name)
