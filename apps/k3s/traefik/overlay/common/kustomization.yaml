@@ -14,15 +14,8 @@ commonLabels:
 #   newName: my.image.registry/nginx
 #   newTag: 1.4.0
 # patchesStrategicMerge:
-# - web-ingress.yaml
+# - args.yaml
 # - patch2.yaml
-# patchesJson6902:
-# - target:
-#     group: apps
-#     version: v1
-#     kind: Deployment
-#     name: my-nginx
-#   path: patch3.yaml
 # cat <<EOF > patch1.yaml
 # apiVersion: apps/v1
 # kind: Deployment
@@ -31,6 +24,13 @@ commonLabels:
 # spec:
 #   replicas: 3
 # EOF
+# patchesJson6902:
+# - target:
+#     group: apps
+#     version: v1
+#     kind: Deployment
+#     name: traefik
+#   path: args.yaml
 # cat <<EOF > patch3.yaml
 # - op: replace
 #   path: /spec/replicas

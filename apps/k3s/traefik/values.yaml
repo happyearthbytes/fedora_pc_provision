@@ -108,7 +108,7 @@ ingressClass:
 # Enable experimental features
 experimental:
   v3:
-    enabled: true
+    enabled: false
   plugins:
     enabled: false
   kubernetesGateway:
@@ -226,10 +226,10 @@ logs:
     # format: json
     # By default, the level is set to ERROR.
     # Alternative logging levels are DEBUG, PANIC, FATAL, ERROR, WARN, and INFO.
-    level: ERROR
+    level: DEBUG
   access:
     # To enable access logs
-    enabled: false
+    enabled: true
     ## By default, logs are written using the Common Log Format (CLF) on stdout.
     ## To write logs in JSON, use json in the format option.
     ## If the given format is unsupported, the default (CLF) is used instead.
@@ -542,23 +542,23 @@ ports:
     # You SHOULD NOT expose the traefik port on production deployments.
     # If you want to access it from outside of your cluster,
     # use `kubectl port-forward` or create a secure ingress
-    expose: true
+    expose: false
     # The exposed port for this service
     exposedPort: 9000
     # The port protocol (TCP/UDP)
     protocol: TCP
   web:
     ## Enable this entrypoint as a default entrypoint. When a service doesn't explicity set an entrypoint it will only use this entrypoint.
-    # asDefault:
+    # asDefault: true
     port: 8000
-    hostPort: 80
+    # hostPort: 8000
     expose: true
     exposedPort: 80
     # The port protocol (TCP/UDP)
     protocol: TCP
     # Use nodeport if set. This is useful if you have configured Traefik in a
     # LoadBalancer.
-    nodePort: 32080
+    # nodePort: 32080
     # Port Redirections
     # Added in 2.2, you can make permanent redirects via entrypoints.
     # https://docs.traefik.io/routing/entrypoints/#redirection

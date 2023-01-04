@@ -73,7 +73,6 @@ spec:
           protocol: "TCP"
         - name: "web"
           containerPort: 8000
-          hostPort: 80
           protocol: "TCP"
         - name: "websecure"
           containerPort: 8443
@@ -105,6 +104,10 @@ spec:
           - "--providers.kubernetescrd"
           - "--providers.kubernetesingress"
           - "--entrypoints.websecure.http.tls=true"
+          - "--log.level=DEBUG"
+          - "--accesslog=true"
+          - "--accesslog.fields.defaultmode=keep"
+          - "--accesslog.fields.headers.defaultmode=drop"
       volumes:
         - name: data
           emptyDir: {}

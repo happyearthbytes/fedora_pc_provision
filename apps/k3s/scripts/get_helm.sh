@@ -52,6 +52,12 @@ create_template() {
         echo "NOTE: To continue: ./${CHART_NAME}/generate.sh"
         exit 0
     fi
+
+    if [ -d ${PROJECT}/base ]; then
+        echo "NOTE: Cleaning previous ${CHART_NAME}/base"
+        rm -rf ${CHART_NAME}/base
+    fi
+
     helm template \
       --include-crds \
       --output-dir ${YAML_BASE} \
@@ -182,6 +188,7 @@ __SCRIPT_PATH="\$( cd -- "\$(dirname "\$0")" >/dev/null 2>&1 || exit ; pwd -P )"
 __BASE_PATH="\$( cd -- "\${__SCRIPT_PATH}/../../.." >/dev/null 2>&1 || exit ; pwd -P )"
 cd \${__BASE_PATH}/apps/k3s/
 
+./${CHART_NAME}/generate.sh
 kubectl apply -k ${CHART_NAME}
 EOF
 

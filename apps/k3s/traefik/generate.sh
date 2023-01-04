@@ -6,6 +6,7 @@ cd ${SCRIPT_DIR}/..
 CHART_SELECTOR=traefik
 CHART_NAME=traefik
 CHART_URL=https://traefik.github.io/charts
+
 ./scripts/get_helm.sh \
   ${CHART_SELECTOR} \
   ${CHART_NAME} \

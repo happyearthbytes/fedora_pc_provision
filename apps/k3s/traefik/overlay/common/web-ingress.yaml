@@ -5,11 +5,16 @@ kind: IngressRoute
 metadata:
   name: traefik-web-ingress
   namespace: default
+  labels:
+    app.kubernetes.io/name: traefik
+    app.kubernetes.io/instance: traefik-default
+  annotations:
+    kustomize: "true"
 spec:
   entryPoints:
   - web
   routes:
-  - match: PathPrefix(`/dashboard2`) || PathPrefix(`/api2`)
+  - match: PathPrefix(`/dashboard`) || PathPrefix(`/api`)
     kind: Rule
     services:
     - name: api@internal
