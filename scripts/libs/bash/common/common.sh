@@ -22,6 +22,6 @@ __COMMON_INSTALLED=true
 
 main()
 {
-  __print_header
+  __debug_header
 }
 main
