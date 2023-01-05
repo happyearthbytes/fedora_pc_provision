@@ -1,7 +1,9 @@
 bases:
 - ../../base
-resources:
-- web-ingress.yaml
+# resources:
+# - traefik-middleware.yaml
+# - traefik-web-ingress.yaml
+# - kubernetes-dashboard-ingress.yaml
 # namespace: examples
 # namePrefix: example-
 # nameSuffix: "-k"

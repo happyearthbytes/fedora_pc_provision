@@ -17,8 +17,10 @@ metadata:
 spec:
   entryPoints:
   - traefik
+  - web
+  - websecure
   routes:
-  - match: PathPrefix(`/dashboard`) || PathPrefix(`/api`)
+  - match: Host(`traefik.themachine`) && PathPrefix(`/dashboard`,`/api`)
     kind: Rule
     services:
     - name: api@internal

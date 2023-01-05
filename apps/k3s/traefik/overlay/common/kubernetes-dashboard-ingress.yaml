@@ -1,0 +1,36 @@
+---
+# Source: traefik/templates/dashboard-hook-ingressroute.yaml
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   name: kubernetes-dashboard-ingress
+#   namespace: default
+#   labels:
+#     app.kubernetes.io/name: traefik
+#     app.kubernetes.io/instance: traefik-default
+#   annotations:
+#     kustomize: "true"
+# spec:
+#   entryPoints:
+#   - secureweb
+#   routes:
+#   - match: PathPrefix(`/tester`)
+#     kind: Rule
+#     services:
+#     - name: kubernetes-dashboard
+#       kind: Service
+#       namespace: default
+    # middlewares:                    # [5]
+    # - name: middleware1             # [6]
+    #   namespace: default            # [7]
+---
+# Strip prefix /foobar and /fiibar
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: kubernetes-dashboard-stripprefix
+spec:
+  stripPrefix:
+    prefixes:
+      - /kubernetes
+    forceSlash: true

@@ -1,0 +1,36 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-strip-prefix
+spec:
+  stripPrefix:
+    prefixes:
+    - /traefik
+# ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: Middleware
+# metadata:
+#   name: traefik-rewrite-api
+# spec:
+#   replacePathRegex:
+#     regex: /api
+#     replacement: /traefik/api
+# Host(`traefik.themachine.k3s`)	
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-dashboard
+spec:
+  entryPoints:
+  - web
+  routes:
+  - kind: Rule
+    match: PathPrefix(`/traefik`) || HeadersRegexp(`Referer`, `.*/traefik/.*`)
+    middlewares:
+      - name: traefik-strip-prefix
+    services:
+    - kind: TraefikService
+      name: api@internal
+

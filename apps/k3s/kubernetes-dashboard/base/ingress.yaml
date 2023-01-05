@@ -21,9 +21,11 @@ metadata:
   labels:
     app.kubernetes.io/name: kubernetes-dashboard
     helm.sh/chart: kubernetes-dashboard-6.0.0
-    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/instance: kubernetes-dashboard
     app.kubernetes.io/version: "2.7.0"
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance2: "traefik-default"
+    app.kubernetes.io/name2: "traefik"
   annotations:
     # Add https backend protocol support for ingress-nginx
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
@@ -31,9 +33,24 @@ metadata:
     service.alpha.kubernetes.io/app-protocols: '{"https":"HTTPS"}'
 spec:
   rules:
-    - http:
+    - host: themachine
+      http:
         paths:
           - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: kubernetes-dashboard
+                port:
+                  number: 443
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: kubernetes-dashboard
+                port:
+                  number: 443
+          - path: /kubernetes
             pathType: ImplementationSpecific
             backend:
               service:

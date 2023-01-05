@@ -1,5 +1,5 @@
-PROJECT_NAME := "my-proj" ## The name of the project - TODO parse from file
-VERSION := "0.x.0" ## A string name of the version - TODO parse from file
+PROJECT_NAME := "PC Provisioning" ## The name of the project - TODO parse from file
+VERSION := "0.1.0" ## A string name of the version - TODO parse from file
 USERNAME := $(shell id -un) ## The username to use - TODO set in include
 ARGS := ## Generic interface for inputing arguments - TODO set in include
 include scripts/make/common.mak
