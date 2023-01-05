@@ -1,0 +1,43 @@
+bases:
+- ../../base
+# namespace: examples
+# namePrefix: example-
+# nameSuffix: "-k"
+commonAnnotations:
+  note: generated
+commonLabels:
+  generated: "true"
+# images:
+# - name: nginx
+#   newName: my.image.registry/nginx
+#   newTag: 1.4.0
+# patchesStrategicMerge:
+# - patch1.yaml
+# - patch2.yaml
+# patchesJson6902:
+# - target:
+#     group: apps
+#     version: v1
+#     kind: Deployment
+#     name: my-nginx
+#   path: patch3.yaml
+# cat <<EOF > patch1.yaml
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: my-nginx
+# spec:
+#   replicas: 3
+# EOF
+# cat <<EOF > patch3.yaml
+# - op: replace
+#   path: /spec/replicas
+#   value: 3
+# EOF
+# vars:
+# - name: MY_SERVICE_NAME
+#   objref:
+#     kind: Service
+#     name: my-nginx
+#     apiVersion: v1
+# https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/

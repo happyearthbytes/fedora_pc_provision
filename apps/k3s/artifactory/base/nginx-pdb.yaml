@@ -1,0 +1,19 @@
+---
+# Source: artifactory/templates/nginx-pdb.yaml
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: artifactory-artifactory-nginx
+  labels:
+    app: artifactory
+    chart: artifactory-107.49.3
+    component: nginx
+    heritage: Helm
+    release: artifactory
+spec:
+  selector:
+    matchLabels:
+      component: nginx
+      app: artifactory
+      release: artifactory
+  minAvailable: 0

@@ -1,0 +1,39 @@
+---
+# Source: fluentd/templates/podsecuritypolicy.yaml
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: fluentd
+  labels:
+    helm.sh/chart: fluentd-0.3.9
+    app.kubernetes.io/name: fluentd
+    app.kubernetes.io/instance: fluentd
+    app.kubernetes.io/version: "v1.14.6"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  privileged: false
+  allowPrivilegeEscalation: false
+  requiredDropCapabilities:
+    - ALL
+  hostNetwork: false
+  hostIPC: false
+  hostPID: false
+  volumes:
+    - 'configMap'
+    - 'secret'
+    - 'hostPath'
+  runAsUser:
+    rule: 'RunAsAny'    
+  seLinux:
+    rule: 'RunAsAny'
+  supplementalGroups:
+    rule: 'MustRunAs'
+    ranges:
+      - min: 1
+        max: 65535
+  fsGroup:
+    rule: 'MustRunAs'
+    ranges:
+      - min: 1
+        max: 65535
+  readOnlyRootFilesystem: false

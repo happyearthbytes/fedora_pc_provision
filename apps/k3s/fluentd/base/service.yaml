@@ -1,0 +1,22 @@
+---
+# Source: fluentd/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: fluentd
+  labels:
+    helm.sh/chart: fluentd-0.3.9
+    app.kubernetes.io/name: fluentd
+    app.kubernetes.io/instance: fluentd
+    app.kubernetes.io/version: "v1.14.6"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+  - port: 24231
+    targetPort: metrics
+    protocol: TCP
+    name: metrics
+  selector:
+    app.kubernetes.io/name: fluentd
+    app.kubernetes.io/instance: fluentd

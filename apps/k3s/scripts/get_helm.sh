@@ -33,9 +33,9 @@ EOF
     fi
 }
 add_repo() {
-    local found=$(helm repo list | grep ${CHART_URL})
+    local found=$(helm repo list | grep ${CHART_URL} | grep "^${CHART_SELECTOR} ")
     if [ "$found" == "" ]; then
-        helm repo add ${CHART_NAME} ${CHART_URL}
+        helm repo add ${CHART_SELECTOR} ${CHART_URL}
     fi
 }
 download_chart() {
@@ -67,7 +67,7 @@ create_template() {
       ${CHART_SELECTOR}/${CHART_NAME}
 
     mv ${YAML_BASE_TMP_PROJ}/templates/* ${YAML_BASE}
-    mv ${YAML_BASE_TMP_PROJ}/crds ${YAML_BASE}
+    mv ${YAML_BASE_TMP_PROJ}/crds ${YAML_BASE} > /dev/null 2>&1 
     rm -rf ${YAML_BASE_TMP_PROJ}
 }
 remove_charts() {
