@@ -1,12 +1,14 @@
 [] update provision directory to use ansible to provision the PC - manual invokation
 [] Update Makefile to call the provision scripts
 [] Test Argo: https://argoproj.github.io/argo-workflows/quick-start/ ... compare with flux
-[] Add keycloak - lets encrypt - certbot
-[] Add Elastic Search
-[] Add fluentd 
-[] Add Harbor
-[] Add Jaeger
-[] Add Prometheus
+[S] Add Elastic Search
+[S] Add fluentd 
+[S] Add Jaeger
+[S] Add keycloak - lets encrypt - certbot
+[S] Add Harbor
+[S] Add Prometheus
+[S] Add Grafana
+[S] Artifactory
 [] Research Rook
 [] update gRPC
 [] use Istio
@@ -14,7 +16,6 @@
 [] Use opentelemetry
 [] Compare Thanos
 [] SonarQube
-[] Artifactory
 [] Hashicorp Vault
 [] Consider Harness
 [] Consider Linkerd
