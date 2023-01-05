@@ -1,7 +1,5 @@
 bases:
 - ../../base
-resources:
-- traefik-ingress.yaml
 # namespace: examples
 # namePrefix: example-
 # nameSuffix: "-k"

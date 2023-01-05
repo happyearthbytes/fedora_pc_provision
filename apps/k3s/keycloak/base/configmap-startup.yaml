@@ -25,3 +25,12 @@ data:
     
     run-batch
     stop-embedded-server
+    
+    
+  mystartup.sh: |
+    #!/bin/sh
+    echo 'Hello from my custom startup script!'
+    env
+    pwd
+    ls
+    echo "End"

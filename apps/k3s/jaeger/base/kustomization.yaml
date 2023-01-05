@@ -14,12 +14,15 @@
 #commonLabels: Modify_if_desired
 #roles: Modify_if_desired
 resources:
-- charts/postgresql/templates/secrets.yaml
-- charts/postgresql/templates/statefulset.yaml
-- charts/postgresql/templates/svc-headless.yaml
-- charts/postgresql/templates/svc.yaml
-- configmap-startup.yaml
-- service-headless.yaml
-- service-http.yaml
-- serviceaccount.yaml
-- statefulset.yaml
+- agent-ds.yaml
+- agent-sa.yaml
+- agent-svc.yaml
+- cassandra-schema-job.yaml
+- cassandra-schema-sa.yaml
+- cassandra-secret.yaml
+- collector-deploy.yaml
+- collector-sa.yaml
+- collector-svc.yaml
+- query-deploy.yaml
+- query-sa.yaml
+- query-svc.yaml

@@ -23,7 +23,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config-startup: d10de0ace316128d803088610f64a062d6a39d5ca8d7a4034cfd2ed2917d39de
+        checksum/config-startup: 62f6095f5713913f2615c432c4fc9d586a6b171f9f83d5db2097ee4560acd0cd
         checksum/secrets: 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a
       labels:
         app.kubernetes.io/name: keycloak
@@ -83,6 +83,25 @@ spec:
                 secretKeyRef:
                   name: keycloak-postgresql
                   key: postgresql-password
+            - name: PROXY_ADDRESS_FORWARDING
+              value: 'true'
+            - name: KEYCLOAK_LOGLEVEL
+              value: DEBUG
+            - name: WILDFLY_LOGLEVEL
+              value: DEBUG
+            - name: KEYCLOAK_ADMIN
+              value: admin
+            - name: KEYCLOAK_ADMIN_PASSWORD
+              value: change_me
+            - name: KEYCLOAK_USER
+              value: user
+            - name: KEYCLOAK_PASSWORD
+              value: change_me
+            # - name: CACHE_OWNERS_COUNT
+            #   value: "2"
+            # - name: CACHE_OWNERS_AUTH_SESSIONS_COUNT
+            #   value: "2"
+            
           envFrom:
           ports:
             - name: http
@@ -123,6 +142,10 @@ spec:
             - name: startup
               mountPath: "/opt/jboss/startup-scripts/keycloak.cli"
               subPath: "keycloak.cli"
+              readOnly: true
+            - name: startup
+              mountPath: "/opt/jboss/startup-scripts/mystartup.sh"
+              subPath: "mystartup.sh"
               readOnly: true
       serviceAccountName: keycloak
       securityContext:
@@ -165,3 +188,5 @@ spec:
             items:
               - key: keycloak.cli
                 path: keycloak.cli
+              - key: mystartup.sh
+                path: mystartup.sh

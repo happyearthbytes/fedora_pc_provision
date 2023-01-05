@@ -105,11 +105,21 @@ command: []
 args: []
 
 # Additional environment variables for Keycloak
-extraEnv: ""
-  # - name: KEYCLOAK_LOGLEVEL
-  #   value: DEBUG
-  # - name: WILDFLY_LOGLEVEL
-  #   value: DEBUG
+extraEnv: |
+  - name: PROXY_ADDRESS_FORWARDING
+    value: 'true'
+  - name: KEYCLOAK_LOGLEVEL
+    value: DEBUG
+  - name: WILDFLY_LOGLEVEL
+    value: DEBUG
+  - name: KEYCLOAK_USER
+    value: user
+  - name: KEYCLOAK_PASSWORD
+    value: change_me
+  # - name: KEYCLOAK_ADMIN
+  #   value: admin
+  # - name: KEYCLOAK_ADMIN_PASSWORD
+  #   value: change_me
   # - name: CACHE_OWNERS_COUNT
   #   value: "2"
   # - name: CACHE_OWNERS_AUTH_SESSIONS_COUNT
@@ -202,10 +212,13 @@ startupScripts:
   # WildFly CLI script for configuring the node-identifier
   keycloak.cli: |
     {{- .Files.Get "scripts/keycloak.cli" }}
-  # mystartup.sh: |
-  #   #!/bin/sh
-  #
-  # echo 'Hello from my custom startup script!'
+  mystartup.sh: |
+    #!/bin/sh
+    echo 'Hello from my custom startup script!'
+    env
+    pwd
+    ls
+    echo "End"
 
 # Add additional volumes, e. g. for custom themes
 extraVolumes: ""

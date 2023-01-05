@@ -67,7 +67,10 @@ create_template() {
       ${CHART_SELECTOR}/${CHART_NAME}
 
     mv ${YAML_BASE_TMP_PROJ}/templates/* ${YAML_BASE}
-    mv ${YAML_BASE_TMP_PROJ}/crds ${YAML_BASE} > /dev/null 2>&1 
+    rmdir ${YAML_BASE_TMP_PROJ}/templates
+    mv ${YAML_BASE_TMP_PROJ}/crds ${YAML_BASE} > /dev/null 2>&1
+    mv ${YAML_BASE_TMP_PROJ}/charts ${YAML_BASE} > /dev/null 2>&1
+    echo "Removing: $(find ${YAML_BASE_TMP_PROJ})"
     rm -rf ${YAML_BASE_TMP_PROJ}
 }
 remove_charts() {
@@ -251,7 +254,7 @@ main() {
     download_chart
     create_template
     create_kustomization
-    remove_charts
+    # remove_charts
 }
 
 main "$@"
