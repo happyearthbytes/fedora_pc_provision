@@ -34,12 +34,16 @@ EOF
 }
 
 setup_hosts() {
-  # TODO
-  # /etc/hosts
-  # 127.0.0.1 whoami.themachine.pc whoami
-  # 127.0.0.1 traefik.themachine.pc traefik
-  add_line '127.0.0.1 registry.themachine.pc registry' /etc/hosts
-  # add_line '192.168.1.192 registry.themachine.k3s registry' /etc/hosts
+  add_line "127.0.0.1 artifactory.themachine" /etc/hosts
+  add_line "127.0.0.1 elasticsearch.themachine" /etc/hosts
+  add_line "127.0.0.1 fluentd.themachine" /etc/hosts
+  add_line "127.0.0.1 grafana.themachine" /etc/hosts
+  add_line "127.0.0.1 harbor.themachine" /etc/hosts
+  add_line "127.0.0.1 jaeger.themachine" /etc/hosts
+  add_line "127.0.0.1 keycloak.themachine" /etc/hosts
+  add_line "127.0.0.1 kubernetes-dashboard.themachine" /etc/hosts
+  add_line "127.0.0.1 prometheus.themachine" /etc/hosts
+  add_line "127.0.0.1 traefik.themachine " /etc/hosts
 }
 
 setup_registry_links() {

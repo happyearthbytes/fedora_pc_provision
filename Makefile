@@ -15,3 +15,5 @@ run_a_top_level_command: ## Run a top level command
 run_an_advanced_command: # Run an advanced command
 	@echo todo
 
+install_pc: ## Install PC provisioning
+	@./apps/setup_scripts/install.sh

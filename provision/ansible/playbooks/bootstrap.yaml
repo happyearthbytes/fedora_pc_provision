@@ -1,0 +1,4 @@
+- name: Add Ansible User
+  hosts: local_machine
+  roles:
+    - create_ansible_user

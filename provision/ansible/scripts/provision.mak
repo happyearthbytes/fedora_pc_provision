@@ -12,3 +12,5 @@ provision-view-config: provision-generate # view ansible config
 	@./provision/ansible/scripts/view_config.sh
 provision-generate: # Provision generate
 	@./provision/ansible/scripts/generate.sh
+provision-bootstrap: # bootstrap
+	@./provision/ansible/scripts/bootstrap.sh

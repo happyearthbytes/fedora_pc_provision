@@ -1,3 +1,11 @@
-- name: Environment
-  shell: |
-    echo $HOSTNAME
+- name: Basic info
+  block:
+    - name: Task 1
+      shell: env
+      changed_when: False
+      failed_when: False
+    - name: Task 2
+      shell: ip addr
+      changed_when: False
+      failed_when: False
+  ignore_errors: true

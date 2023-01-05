@@ -1,0 +1,32 @@
+- name: Create ansible user
+  user:
+    name: ansible
+    state: present
+  become: true
+
+- name: Allow ansible user to run sudo without a password
+  lineinfile:
+    path: /etc/sudoers
+    line: 'ansible ALL=(ALL) NOPASSWD:ALL'
+    state: present
+    validate: '/usr/sbin/visudo -cf %s'
+  become: true
+
+- name: create .ssh
+  ansible.builtin.file:
+    path: /home/ansible/.ssh/
+    state: directory
+    owner: ansible
+    mode: 0700
+  become: true
+  become_user: ansible
+
+- name: Generate SSH key pair
+  community.crypto.openssh_keypair:
+    type: rsa
+    path: /home/ansible/.ssh/id_rsa
+    owner: ansible
+    mode: 0600
+  become: true
+  become_user: ansible
+  
