@@ -22,6 +22,11 @@ resources:
 - artifactory-service.yaml
 - artifactory-statefulset.yaml
 - artifactory-system-yaml.yaml
+- charts/postgresql/templates/extended-config-configmap.yaml
+- charts/postgresql/templates/secrets.yaml
+- charts/postgresql/templates/statefulset.yaml
+- charts/postgresql/templates/svc-headless.yaml
+- charts/postgresql/templates/svc.yaml
 - nginx-artifactory-conf.yaml
 - nginx-certificate-secret.yaml
 - nginx-conf.yaml

@@ -1,31 +1,13 @@
+include apps/k3s/traefik/traefik.mak
+include apps/k3s/artifactory/artifactory.mak
+include apps/k3s/elasticsearch/elasticsearch.mak
+include apps/k3s/fluentd/fluentd.mak
+include apps/k3s/grafana/grafana.mak
+include apps/k3s/harbor/harbor.mak
+include apps/k3s/jaeger/jaeger.mak
+include apps/k3s/kubernetes-dashboard/kubernetes-dashboard.mak
+include apps/k3s/prometheus/prometheus.mak
 include apps/k3s/keycloak/keycloak.mak
-
-# traefik
-k3s-traefik-view: ## View
-	@apps/k3s/traefik/view.sh
-k3s-traefik-restart: k3s-traefik-stop k3s-traefik-start # Restart
-k3s-traefik-start: # Start
-	@apps/k3s/traefik/start.sh
-k3s-traefik-stop: # Stop
-	@apps/k3s/traefik/stop.sh || true
-
-# kubernetes-dashboard
-k3s-kubernetes-dashboard-view: ## View
-	@apps/k3s/kubernetes-dashboard/view.sh
-k3s-kubernetes-dashboard-restart: k3s-kubernetes-dashboard-stop k3s-kubernetes-dashboard-start # Restart
-k3s-kubernetes-dashboard-start: # Start
-	@apps/k3s/kubernetes-dashboard/start.sh
-k3s-kubernetes-dashboard-stop: # Stop
-	@apps/k3s/kubernetes-dashboard/stop.sh || true
-
-# Registry
-k3s-registry-view: ## View
-	@apps/k3s/registry/view.sh
-k3s-registry-restart: k3s-registry-stop k3s-registry-start # Restart
-k3s-registry-start: # Start
-	@apps/k3s/registry/start.sh
-k3s-registry-stop: # Stop
-	@apps/k3s/registry/stop.sh || true
 
 # General
 k3s-watch: ## watch k3s

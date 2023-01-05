@@ -20,6 +20,8 @@ resources:
 - cassandra-schema-job.yaml
 - cassandra-schema-sa.yaml
 - cassandra-secret.yaml
+- charts/cassandra/templates/service.yaml
+- charts/cassandra/templates/statefulset.yaml
 - collector-deploy.yaml
 - collector-sa.yaml
 - collector-svc.yaml
