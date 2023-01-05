@@ -10,6 +10,7 @@ metadata:
     app.kubernetes.io/instance: traefik-default
     helm.sh/chart: traefik-20.8.0
     app.kubernetes.io/managed-by: Helm
+    method: traefik
   annotations:
 spec:
   replicas: 1
@@ -102,6 +103,7 @@ spec:
           - "--metrics.prometheus=true"
           - "--metrics.prometheus.entrypoint=metrics"
           - "--providers.kubernetescrd"
+          - "--providers.kubernetescrd.labelSelector=method=traefik"
           - "--providers.kubernetesingress"
           - "--providers.kubernetesingress.labelSelector=method=traefik"
           - "--entrypoints.websecure.http.tls=true"

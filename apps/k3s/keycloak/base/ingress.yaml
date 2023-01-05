@@ -1,0 +1,29 @@
+---
+# Source: keycloak/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: keycloak
+  labels:
+    helm.sh/chart: keycloak-18.4.0
+    app.kubernetes.io/name: keycloak
+    app.kubernetes.io/instance: keycloak
+    app.kubernetes.io/version: "17.0.1-legacy"
+    app.kubernetes.io/managed-by: Helm
+    method: "traefik"
+spec:
+  tls:
+    - hosts:
+        - "keycloak.example.com"
+  rules:
+    -
+      host: "keycloak.keycloak.example.com"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: keycloak-http
+                port:
+                  name: http

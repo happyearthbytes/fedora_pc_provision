@@ -10,6 +10,7 @@ metadata:
     app.kubernetes.io/instance: keycloak
     app.kubernetes.io/version: "17.0.1-legacy"
     app.kubernetes.io/managed-by: Helm
+    method: "traefik"
 spec:
   selector:
     matchLabels:
@@ -28,6 +29,7 @@ spec:
       labels:
         app.kubernetes.io/name: keycloak
         app.kubernetes.io/instance: keycloak
+        method: "traefik"
     spec:
       initContainers:
         - name: pgchecker

@@ -46,7 +46,8 @@ serviceAccount:
   # Additional annotations for the ServiceAccount
   annotations: {}
   # Additional labels for the ServiceAccount
-  labels: {}
+  labels:
+    method: traefik
   # Image pull secrets that are attached to the ServiceAccount
   imagePullSecrets: []
 
@@ -167,7 +168,8 @@ nodeSelector: {}
 tolerations: []
 
 # Additional Pod labels
-podLabels: {}
+podLabels:
+  method: traefik
 
 # Additional Pod annotations
 podAnnotations: {}
@@ -238,8 +240,8 @@ podDisruptionBudget: {}
 statefulsetAnnotations: {}
 
 # Additional labels for the StatefulSet
-statefulsetLabels: {}
-
+statefulsetLabels:
+  method: traefik
 # Configuration for secrets that should be created
 secrets: {}
   # mysecret:
@@ -253,7 +255,8 @@ service:
   # Annotations for headless and HTTP Services
   annotations: {}
   # Additional labels for headless and HTTP Services
-  labels: {}
+  labels:
+    method: traefik
   # key: value
   # The Service type
   type: ClusterIP
@@ -289,7 +292,7 @@ service:
 
 ingress:
   # If `true`, an Ingress is created
-  enabled: false
+  enabled: true
   # The name of the Ingress Class associated with this ingress
   ingressClassName: ""
   # The Service port targeted by the Ingress
@@ -301,7 +304,8 @@ ingress:
     # nginx.ingress.kubernetes.io/proxy-buffer-size: 128k
 
   # Additional Ingress labels
-  labels: {}
+  labels:
+    method: traefik
    # List of rules for the Ingress
   rules:
     -

@@ -14,6 +14,7 @@ metadata:
     app.kubernetes.io/instance: traefik-default
     helm.sh/chart: traefik-20.8.0
     app.kubernetes.io/managed-by: Helm
+    method: traefik
 spec:
   entryPoints:
   - traefik

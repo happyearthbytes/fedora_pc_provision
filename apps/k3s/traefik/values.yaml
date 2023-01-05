@@ -44,7 +44,8 @@ deployment:
   # Additional deployment annotations (e.g. for jaeger-operator sidecar injection)
   annotations: {}
   # Additional deployment labels (e.g. for filtering deployment by custom labels)
-  labels: {}
+  labels:
+    method: traefik
   # Additional pod annotations (e.g. for mesh injection or prometheus scraping)
   podAnnotations: {}
   # Additional Pod labels (e.g. for filtering Pod by custom labels)
@@ -133,7 +134,8 @@ ingressRoute:
     # Additional ingressRoute annotations (e.g. for kubernetes.io/ingress.class)
     annotations: {}
     # Additional ingressRoute labels (e.g. for filtering IngressRoute by custom labels)
-    labels: {}
+    labels:
+      method: traefik
     # The router match rule used for the dashboard ingressRoute
     matchRule: Host(`traefik.themachine`) && PathPrefix(`/dashboard`,`/api`) # || PathPrefix(`/traefik`)
     # Specify the allowed entrypoints to use for the dashboard ingress route, (e.g. traefik, web, websecure).
@@ -178,6 +180,7 @@ providers:
     allowEmptyServices: false
     # ingressClass: traefik-internal
     # labelSelector: environment=production,method=traefik
+    labelSelector: method=traefik # ,environment=production
     namespaces: []
       # - "default"
 
@@ -682,7 +685,8 @@ service:
   # Additional annotations for UDP service only
   annotationsUDP: {}
   # Additional service labels (e.g. for filtering Service by custom labels)
-  labels: {}
+  labels:
+    method: traefik
   # Additional entries here will be added to the service spec.
   # Cannot contain type, selector or ports entries.
   spec: {}

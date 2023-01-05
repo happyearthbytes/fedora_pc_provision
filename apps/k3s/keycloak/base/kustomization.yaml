@@ -19,6 +19,7 @@ resources:
 - charts/postgresql/templates/svc-headless.yaml
 - charts/postgresql/templates/svc.yaml
 - configmap-startup.yaml
+- ingress.yaml
 - service-headless.yaml
 - service-http.yaml
 - serviceaccount.yaml
