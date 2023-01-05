@@ -1,3 +1,25 @@
 [] update provision directory to use ansible to provision the PC - manual invokation
 [] Update Makefile to call the provision scripts
-[] update k3s to run and configure traefik
+[] Test Argo: https://argoproj.github.io/argo-workflows/quick-start/ ... compare with flux
+[] Add keycloak - lets encrypt - certbot
+[] Add Elastic Search
+[] Add fluentd 
+[] Add Harbor
+[] Add Jaeger
+[] Add Prometheus
+[] Research Rook
+[] update gRPC
+[] use Istio
+[] Consider Rancher interface
+[] Use opentelemetry
+[] Compare Thanos
+[] SonarQube
+[] Artifactory
+[] Hashicorp Vault
+[] Consider Harness
+[] Consider Linkerd
+[] Research Terraform
+[] Research Calico / Tigera
+[] Research Sonatype Nexus
+[] Research Splunk
+[] Compare Jenkins X, Team City, Argo CD, Travic CI, Jenkins, Circli CI, Gitlab, Flux

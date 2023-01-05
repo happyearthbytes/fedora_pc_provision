@@ -186,7 +186,7 @@ providers:
     allowExternalNameServices: false
     allowEmptyServices: false
     # ingressClass: traefik-internal
-    # labelSelector: environment=production,method=traefik
+    labelSelector: method=traefik # ,environment=production
     namespaces: []
       # - "default"
     # IP used for Kubernetes Ingress endpoints

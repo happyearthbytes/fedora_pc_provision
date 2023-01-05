@@ -103,6 +103,7 @@ spec:
           - "--metrics.prometheus.entrypoint=metrics"
           - "--providers.kubernetescrd"
           - "--providers.kubernetesingress"
+          - "--providers.kubernetesingress.labelSelector=method=traefik"
           - "--entrypoints.websecure.http.tls=true"
           - "--log.level=DEBUG"
           - "--accesslog=true"

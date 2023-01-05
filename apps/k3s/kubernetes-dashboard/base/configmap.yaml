@@ -26,4 +26,4 @@ metadata:
   annotations:
   name: kubernetes-dashboard-settings
 data:
-  _global: "{\"clusterName\":\"themachine-cluster\"}"
+  _global: "{\"clusterName\":\"themachine-cluster\",\"disableAccessDeniedNotifications\":false,\"itemsPerPage\":10,\"logsAutoRefreshTimeInterval\":5,\"resourceAutoRefreshTimeInterval\":5}"

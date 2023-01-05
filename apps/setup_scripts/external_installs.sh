@@ -83,8 +83,9 @@ install_k3s() {
         cp k3s/config.yaml /etc/rancher/k3s/
         sudo swapoff -a
         curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--disable=traefik" INSTALL_K3S_SKIP_ENABLE=true INSTALL_K3S_SKIP_START=true sh -s - server
-        # INSTALL_K3S_VERSION="v1.23.7+k3s1" sh
     fi
+    # https://docs.k3s.io/advanced#red-hat-enterprise-linux--centos
+    sudo systemctl disable firewalld --now
 }
 
 start_k3s() {

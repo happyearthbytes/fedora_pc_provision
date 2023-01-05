@@ -175,8 +175,7 @@ ingress:
 
   ## Kubernetes Dashboard Ingress annotations
   labels:
-    app.kubernetes.io/name2: traefik
-    app.kubernetes.io/instance2: traefik-default
+    method: traefik
 
   ## If you plan to use TLS backend with enableInsecureLogin set to false
   ## (default), you need to uncomment the below.
@@ -193,7 +192,6 @@ ingress:
   paths:
     - /
     - /*
-    - /kubernetes
 
   ## Custom Kubernetes Dashboard Ingress paths. Will override default paths.
   ##
@@ -216,7 +214,7 @@ ingress:
   ## Must be provided if Ingress is enabled
   ##
   hosts:
-    - themachine
+    - kubernetes-dashboard.themachine
   ## Kubernetes Dashboard Ingress TLS configuration
   ## Secrets must be manually created in the namespace
   ##
@@ -230,13 +228,13 @@ settings:
   ## Cluster name that appears in the browser window title if it is set
   clusterName: "themachine-cluster"
   ## Max number of items that can be displayed on each list page
-  # itemsPerPage: 10
+  itemsPerPage: 10
   ## Number of seconds between every auto-refresh of logs
-  # logsAutoRefreshTimeInterval: 5
+  logsAutoRefreshTimeInterval: 5
   ## Number of seconds between every auto-refresh of every resource. Set 0 to disable
-  # resourceAutoRefreshTimeInterval: 5
+  resourceAutoRefreshTimeInterval: 5
   ## Hide all access denied warnings in the notification panel
-  # disableAccessDeniedNotifications: false
+  disableAccessDeniedNotifications: false
 
 ## Pinned CRDs that will be displayed in dashboard's menu
 pinnedCRDs:
