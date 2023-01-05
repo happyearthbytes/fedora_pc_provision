@@ -1,3 +1,5 @@
+include apps/k3s/keycloak/keycloak.mak
+
 # traefik
 k3s-traefik-view: ## View
 	@apps/k3s/traefik/view.sh
