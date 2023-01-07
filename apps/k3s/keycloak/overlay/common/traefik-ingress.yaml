@@ -1,8 +1,29 @@
 ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   name: keycloak-ingress
+#   labels:
+#     method: traefik
+#   annotations:
+#     kustomize: "true"
+# spec:
+#   entryPoints:
+#   - web
+#   # - https
+#   - http-management
+#   routes:
+#   - kind: Rule
+#     match: Host(`keycloak.themachine`)
+#     services:
+#     - kind: Service
+#       name: keycloak-http
+# ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: keycloak-ingress
+  namespace: default
   labels:
     method: traefik
   annotations:
@@ -10,11 +31,11 @@ metadata:
 spec:
   entryPoints:
   - web
-  - https
-  - http-management
+  - websecure
   routes:
-  - kind: Rule
-    match: Host(`keycloak.themachine`)
+  - match: Host(`keycloak.themachine`)
+    kind: Rule
     services:
-    - kind: Service
-      name: keycloak-http
+    - name: keycloak-http
+      kind: Service
+      port: 80

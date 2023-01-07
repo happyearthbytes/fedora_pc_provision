@@ -175,9 +175,9 @@ livenessProbe:
 providers:
   kubernetesCRD:
     enabled: true
-    allowCrossNamespace: false
-    allowExternalNameServices: false
-    allowEmptyServices: false
+    allowCrossNamespace: true
+    allowExternalNameServices: true
+    allowEmptyServices: true
     # ingressClass: traefik-internal
     # labelSelector: environment=production,method=traefik
     labelSelector: method=traefik # ,environment=production
@@ -186,8 +186,8 @@ providers:
 
   kubernetesIngress:
     enabled: true
-    allowExternalNameServices: false
-    allowEmptyServices: false
+    allowExternalNameServices: true
+    allowEmptyServices: true
     # ingressClass: traefik-internal
     labelSelector: method=traefik # ,environment=production
     namespaces: []

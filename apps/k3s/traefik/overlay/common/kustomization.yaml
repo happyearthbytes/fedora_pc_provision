@@ -11,6 +11,7 @@ commonAnnotations:
   note: generated
 commonLabels:
   generated: "true"
+  method: traefik
 # images:
 # - name: nginx
 #   newName: my.image.registry/nginx
