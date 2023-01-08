@@ -102,7 +102,7 @@ start_k3s() {
         sudo cp k3s/registries.yaml /etc/rancher/k3s/
 
         sudo systemctl start k3s
-        sudo systemctl enable k3s
+        # sudo systemctl enable k3s
         sleep 1
         mkdir -p ~/.kube
         kubectl config view --raw > ~/.kube/config

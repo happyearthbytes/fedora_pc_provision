@@ -58,18 +58,15 @@ start_registry() {
 
 
 start_services() {
-  sudo systemctl start etcd
-  sudo systemctl enable etcd
-  sudo systemctl start systemd-networkd
-  sudo systemctl enable systemd-networkd
+  # sudo systemctl start etcd
+  # sudo systemctl enable etcd
   sudo systemctl start sshd
   sudo systemctl enable sshd
+  # sudo systemctl start systemd-networkd
+  # sudo systemctl enable systemd-networkd
   sudo systemctl start NetworkManager
   sudo systemctl enable NetworkManager
-  # sudo systemctl start systemd-boot-check-no-failures
-  # sudo systemctl enable systemd-boot-check-no-failures
-  # sudo systemctl start nginx
-  # sudo systemctl enable nginx
+  networkctl list
 }
 
 

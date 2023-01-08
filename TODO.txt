@@ -24,3 +24,10 @@
 [] Research Sonatype Nexus
 [] Research Splunk
 [] Compare Jenkins X, Team City, Argo CD, Travic CI, Jenkins, Circli CI, Gitlab, Flux
+[] Consider Fedora CoreOS options for nodes
+  https://carmine.dev/posts/kubernetesclusterfcos/
+  https://dev.to/carminezacc/creating-a-kubernetes-cluster-with-fedora-coreos-36-j17
+  https://access.redhat.com/documentation/en-us/openshift_container_platform/4.8/html/installing/installation-configuration
+  https://docs.fedoraproject.org/en-US/fedora-coreos/sysconfig-network-configuration/
+  https://www.techrepublic.com/article/how-to-deploy-coreos-as-a-virtual-machine/
+[] Consider using Butane / Ignition for provisioning

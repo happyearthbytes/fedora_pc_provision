@@ -17,3 +17,5 @@ run_an_advanced_command: # Run an advanced command
 
 install_pc: ## Install PC provisioning
 	@./apps/setup_scripts/install.sh
+diagnose_pc: ## Install PC provisioning
+	@./apps/diagnose_pc/run.sh

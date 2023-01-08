@@ -3,3 +3,4 @@ kodi
 steam
 openrgb
 i2c-tools
+inxi

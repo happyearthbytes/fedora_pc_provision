@@ -1,0 +1,13 @@
+sudo inxi -Fxxxrz
+inxi -G
+dmesg -l err
+sudo cat /var/log/boot.log
+sudo cat -n /var/log/boot.log 2>&1 | sed -e 's/\r/\n#/g' | sed '/^#$/ d' | egrep "^#|----" -A2 -B5
+sudo cat -n /var/log/boot.log 2>&1 |egrep "FAILED|----" -A2 -B3
+systemd-analyze blame
+sudo systemctl --failed
+
+# Network startup
+sudo systemctl cat systemd-networkd-wait-online.service
+systemctl show -p WantedBy network-online.target
+networkctl status -a

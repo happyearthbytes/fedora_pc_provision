@@ -142,7 +142,7 @@
 #         sudo cp k3s/registries.yaml /etc/rancher/k3s/
 
 #         sudo systemctl start k3s
-#         sudo systemctl enable k3s
+# #         sudo systemctl enable k3s
 #         sleep 1
 #         mkdir -p ~/.kube
 #         kubectl config view --raw > ~/.kube/config
@@ -340,7 +340,7 @@
 
 # start_services() {
 #   sudo systemctl start etcd
-#   sudo systemctl enable etcd
+#   # sudo systemctl enable etcd
 #   sudo systemctl start systemd-networkd
 #   sudo systemctl enable systemd-networkd
 #   sudo systemctl start sshd
