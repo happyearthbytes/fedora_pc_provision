@@ -1,4 +1,5 @@
-secret.yaml
-*-secret.yaml
-secrets.yaml
-*-secrets.yaml
+**/secret.yaml
+**/*-secret.yaml
+**/core-secret.yaml
+**/secrets.yaml
+**/*-secrets.yaml
