@@ -1,3 +1,2 @@
 #!/usr/bin/env bash
-echo "not implemented"
-echo "xdg-open ..."
+xdg-open http://elasticsearch.themachine/

@@ -1,0 +1,7 @@
+bases:
+- ../../base
+commonAnnotations:
+  note: generated
+commonLabels:
+  generated: "true"
+# https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/

@@ -1,3 +1,4 @@
+include apps/k3s/cert-manager/cert-manager.mak
 include apps/k3s/traefik/traefik.mak
 include apps/k3s/artifactory/artifactory.mak
 include apps/k3s/elasticsearch/elasticsearch.mak

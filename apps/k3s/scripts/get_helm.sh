@@ -83,57 +83,23 @@ kustomization_overlay()
         mkdir -p ${PROJECT}/overlay
         # next we want to create two overlays as a starting point
         mkdir -p ${PROJECT}/overlay/common
-        mkdir -p ${PROJECT}/overlay/example
         # then we want to copy the kustomize file to each overlay
         # in order to do that we start by creating the kustomize file
         
         cat <<EOF > ${PROJECT}/overlay/common/kustomization.yaml
 bases:
 - ../../base
-# namespace: examples
-# namePrefix: example-
-# nameSuffix: "-k"
 commonAnnotations:
   note: generated
 commonLabels:
   generated: "true"
-# images:
-# - name: nginx
-#   newName: my.image.registry/nginx
-#   newTag: 1.4.0
+# resources:
+# - my-ingress.yaml
 # patchesStrategicMerge:
 # - patch1.yaml
-# - patch2.yaml
-# patchesJson6902:
-# - target:
-#     group: apps
-#     version: v1
-#     kind: Deployment
-#     name: my-nginx
-#   path: patch3.yaml
-# cat <<EOF > patch1.yaml
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: my-nginx
-# spec:
-#   replicas: 3
-# EOF
-# cat <<EOF > patch3.yaml
-# - op: replace
-#   path: /spec/replicas
-#   value: 3
-# EOF
-# vars:
-# - name: MY_SERVICE_NAME
-#   objref:
-#     kind: Service
-#     name: my-nginx
-#     apiVersion: v1
 # https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/
 EOF
 
-        cp ${PROJECT}/overlay/common/kustomization.yaml ${PROJECT}/overlay/example/kustomization.yaml
         echo "IMPORTANT: Modify ${PROJECT}/overlay/*/kustomization.yaml"
     fi
 }
@@ -144,7 +110,6 @@ kustomization_project()
         cat <<EOF > ${PROJECT}/kustomization.yaml
 resources:
 - overlay/common
-#- overlay/example
 EOF
 
     fi
@@ -251,8 +216,7 @@ view_sh() {
 
         cat <<EOF > ${location}
 #!/usr/bin/env bash
-echo "not implemented"
-echo "xdg-open ..."
+xdg-open http://${PROJECT}.themachine/
 EOF
         chmod +x ${location}
         echo "NOTE: Update ${location}"
@@ -281,9 +245,18 @@ get_value()
 }
 main() {
     # Assign Variables
-    CHART_SELECTOR=$(get_value CHART_SELECTOR "e.g. traefik" $1 )
-    CHART_NAME=$(get_value CHART_NAME "e.g. traefik" $2 )
-    CHART_URL=$(get_value CHART_URL "e.g. https://traefik.github.io/charts" $3)
+    echo "Example:"
+    echo "  helm repo add jetstack https://charts.jetstack.io"
+    echo "                    |             |"
+    echo "          HELM_REPO_NAME   HELM_REPO_URL"
+    echo
+    echo "  helm install cert-manager jetstack/cert-manager"
+    echo "                    |          |             |"
+    echo "        HELM_CHART_NAME   HELM_REPO_NAME / HELM_CHART_NAME"
+    echo
+    CHART_SELECTOR=$(get_value HELM_REPO_NAME "e.g. traefik" $1 )
+    CHART_URL=$(get_value HELM_REPO_URL "e.g. https://traefik.github.io/charts" $3)
+    CHART_NAME=$(get_value HELM_CHART_NAME "e.g. traefik" $2 )
     PROJECT=${CHART_NAME}
     TMP_CHARTS=${PROJECT}/charts
     YAML_BASE=${PROJECT}/base

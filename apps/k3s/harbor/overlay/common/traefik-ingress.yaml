@@ -1,0 +1,21 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: harbor-ingress
+  namespace: default
+  labels:
+    method: traefik
+  annotations:
+    kustomize: "true"
+spec:
+  entryPoints:
+  - web
+  - websecure
+  routes:
+  - match: Host(`harbor.themachine`)
+    kind: Rule
+    services:
+    - name: harbor-portal
+      kind: Service
+      port: 80

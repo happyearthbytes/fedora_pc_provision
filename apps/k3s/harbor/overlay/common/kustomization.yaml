@@ -3,6 +3,8 @@ bases:
 # namespace: examples
 # namePrefix: example-
 # nameSuffix: "-k"
+# resources:
+# - traefik-ingress.yaml
 commonAnnotations:
   note: generated
 commonLabels:

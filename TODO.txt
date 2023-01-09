@@ -31,3 +31,4 @@
   https://docs.fedoraproject.org/en-US/fedora-coreos/sysconfig-network-configuration/
   https://www.techrepublic.com/article/how-to-deploy-coreos-as-a-virtual-machine/
 [] Consider using Butane / Ignition for provisioning
+[] add rancher web ui

@@ -33,8 +33,8 @@ expose:
       notarySecretName: ""
   ingress:
     hosts:
-      core: core.harbor.domain
-      notary: notary.harbor.domain
+      core: core.harbor.themachine
+      notary: notary.harbor.themachine
     # set to the type of ingress controller if it has specific requirements.
     # leave as `default` for most ingress controllers.
     # set to `gce` if using the GCE ingress controller
@@ -56,12 +56,14 @@ expose:
       # notary ingress-specific annotations
       annotations: {}
       # notary ingress-specific labels
-      labels: {}
+      labels:
+        method: traefik
     harbor:
       # harbor ingress-specific annotations
       annotations: {}
       # harbor ingress-specific labels
-      labels: {}
+      labels:
+        method: traefik
   clusterIP:
     # The name of ClusterIP service
     name: harbor
@@ -124,7 +126,7 @@ expose:
 # the IP address of k8s node
 #
 # If Harbor is deployed behind the proxy, set it as the URL of proxy
-externalURL: https://core.harbor.domain
+externalURL: https://core.harbor.themachine
 
 # The internal TLS used for harbor components secure communicating. In order to enable https
 # in each components tls cert files need to provided in advance.
@@ -397,7 +399,7 @@ existingSecretSecretKey: ""
 proxy:
   httpProxy:
   httpsProxy:
-  noProxy: 127.0.0.1,localhost,.local,.internal
+  noProxy: 127.0.0.1,localhost,.local,.internal,harbor.themachine,core.harbor.themachine,notary.harbor.themachine
   components:
     - core
     - jobservice
