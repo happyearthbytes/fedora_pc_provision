@@ -576,7 +576,7 @@ server:
 
   ## Prometheus server pod termination grace period
   ##
-  terminationGracePeriodSeconds: 300
+  terminationGracePeriodSeconds: 5
 
   ## Prometheus data retention period (default if not specified is 15 days)
   ##

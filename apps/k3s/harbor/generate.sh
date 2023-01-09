@@ -9,3 +9,6 @@ CHART_URL=https://helm.goharbor.io
   ${CHART_SELECTOR} \
   ${CHART_NAME} \
   ${CHART_URL}
+
+
+# ./opt/jboss/keycloak/bin/standalone.sh -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir="/tmp"

@@ -38,7 +38,7 @@ deployment:
   # Number of old history to retain to allow rollback (If not set, default Kubernetes value is set to 10)
   # revisionHistoryLimit: 1
   # Amount of time (in seconds) before Kubernetes will send the SIGKILL signal if Traefik does not shut down
-  terminationGracePeriodSeconds: 60
+  terminationGracePeriodSeconds: 5
   # The minimum number of seconds Traefik needs to be up and running before the DaemonSet/Deployment controller considers it available
   minReadySeconds: 0
   # Additional deployment annotations (e.g. for jaeger-operator sidecar injection)

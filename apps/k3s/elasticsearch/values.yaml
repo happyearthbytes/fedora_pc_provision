@@ -227,7 +227,7 @@ securityContext:
   runAsUser: 1000
 
 # How long to wait for elasticsearch to stop gracefully
-terminationGracePeriod: 120
+terminationGracePeriod: 0
 
 sysctlVmMaxMapCount: 262144
 

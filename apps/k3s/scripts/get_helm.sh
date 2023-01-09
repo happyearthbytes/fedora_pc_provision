@@ -245,15 +245,17 @@ get_value()
 }
 main() {
     # Assign Variables
-    echo "Example:"
-    echo "  helm repo add jetstack https://charts.jetstack.io"
-    echo "                    |             |"
-    echo "          HELM_REPO_NAME   HELM_REPO_URL"
-    echo
-    echo "  helm install cert-manager jetstack/cert-manager"
-    echo "                    |          |             |"
-    echo "        HELM_CHART_NAME   HELM_REPO_NAME / HELM_CHART_NAME"
-    echo
+    if [[ -z $3 ]]; then
+        echo "Example:"
+        echo "  helm repo add jetstack https://charts.jetstack.io"
+        echo "                    |             |"
+        echo "          HELM_REPO_NAME   HELM_REPO_URL"
+        echo
+        echo "  helm install cert-manager jetstack/cert-manager"
+        echo "                    |          |             |"
+        echo "        HELM_CHART_NAME   HELM_REPO_NAME / HELM_CHART_NAME"
+        echo
+    fi
     CHART_SELECTOR=$(get_value HELM_REPO_NAME "e.g. traefik" $1 )
     CHART_URL=$(get_value HELM_REPO_URL "e.g. https://traefik.github.io/charts" $3)
     CHART_NAME=$(get_value HELM_CHART_NAME "e.g. traefik" $2 )

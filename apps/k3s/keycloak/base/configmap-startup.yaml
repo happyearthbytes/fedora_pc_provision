@@ -29,8 +29,9 @@ data:
     
   mystartup.sh: |
     #!/bin/sh
-    echo 'Hello from my custom startup script!'
-    env
-    pwd
-    ls
-    echo "End"
+    echo ""
+    echo "Starting export"
+    sh -c 'echo $$; exec /opt/jboss/keycloak/bin/standalone.sh -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/tmp/realms/' | { read pid; while read -r line; do echo "$line"; test "$line" = "${line% Export finished successfully}" || kill $pid; done; }
+    ls -lart /tmp/realms
+    echo "Export Complete"
+    echo ""

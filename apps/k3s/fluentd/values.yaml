@@ -150,7 +150,7 @@ minReadySeconds:
 
 ## How long (in seconds) a pod may take to exit (useful with lifecycle hooks to ensure lb deregistration is done)
 ##
-terminationGracePeriodSeconds:
+terminationGracePeriodSeconds: 0
 
 ## Deployment strategy / DaemonSet updateStrategy
 ##

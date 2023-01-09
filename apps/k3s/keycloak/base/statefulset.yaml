@@ -24,7 +24,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config-startup: 62f6095f5713913f2615c432c4fc9d586a6b171f9f83d5db2097ee4560acd0cd
+        checksum/config-startup: 42e9a40bef988d2c6b272a6c8f4e26cbf3f0259cb5ff62905bcc79321569deea
         checksum/secrets: 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a
       labels:
         app.kubernetes.io/name: keycloak
@@ -181,7 +181,7 @@ spec:
                         - test
                 topologyKey: failure-domain.beta.kubernetes.io/zone
         
-      terminationGracePeriodSeconds: 60
+      terminationGracePeriodSeconds: 0
       volumes:
         - name: startup
           configMap:

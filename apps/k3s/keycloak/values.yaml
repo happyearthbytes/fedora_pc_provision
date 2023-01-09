@@ -94,7 +94,7 @@ lifecycleHooks: |
 #        - ls
 
 # Termination grace period in seconds for Keycloak shutdown. Clusters with a large cache might need to extend this to give Infinispan more time to rebalance
-terminationGracePeriodSeconds: 60
+terminationGracePeriodSeconds: 0
 
 # The internal Kubernetes cluster domain
 clusterDomain: cluster.local
@@ -216,11 +216,12 @@ startupScripts:
     {{- .Files.Get "scripts/keycloak.cli" }}
   mystartup.sh: |
     #!/bin/sh
-    echo 'Hello from my custom startup script!'
-    env
-    pwd
-    ls
-    echo "End"
+    echo ""
+    echo "Starting export"
+    sh -c 'echo $$; exec /opt/jboss/keycloak/bin/standalone.sh -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/tmp/realms/' | { read pid; while read -r line; do echo "$line"; test "$line" = "${line% Export finished successfully}" || kill $pid; done; }
+    ls -lart /tmp/realms
+    echo "Export Complete"
+    echo ""
 
 # Add additional volumes, e. g. for custom themes
 extraVolumes: ""
