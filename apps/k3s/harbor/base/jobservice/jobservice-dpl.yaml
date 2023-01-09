@@ -30,9 +30,9 @@ spec:
         component: jobservice
       annotations:
         checksum/configmap: 41138a089428e6776014e59b1a37c5e69bedc9331ccdb1f382f1950882ec1b7e
-        checksum/configmap-env: 5a3b0ddd62a444912afd2891968f351775c35e2d61aa3a3f3323f07283e8d9ac
-        checksum/secret: afc35d926b81176e49bf66d1f6b2c9ca80ba588b814e9eea2670ac0c36779c6e
-        checksum/secret-core: 436b2ea7a84ff1080d7104cec5e43ab1512d194b9cfc80a02b28da729153771b
+        checksum/configmap-env: c7fe777cc69fadd7e5a12834f12ed84be2539cf68fcdfc677987e85c81cfea5f
+        checksum/secret: f3b7b0d43aba9714af3904cc888ee661cf0a6b30feea992ea3580ad25214b671
+        checksum/secret-core: a625d7e6d19dabb12b9f08527440cfa67ec5f47a45e148e9227a78ab358a5761
     spec:
       securityContext:
         runAsUser: 10000
