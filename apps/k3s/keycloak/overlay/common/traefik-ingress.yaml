@@ -30,10 +30,10 @@ metadata:
     kustomize: "true"
 spec:
   entryPoints:
-  - web
   - websecure
+  - web
   routes:
-  - match: Host(`keycloak.themachine`)
+  - match: Host(`keycloak.themachine`) || Host(`keycloak-http`)
     kind: Rule
     services:
     - name: keycloak-http

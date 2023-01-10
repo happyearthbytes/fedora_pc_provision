@@ -27,7 +27,6 @@ resources:
 - database/database-ss.yaml
 - database/database-svc.yaml
 - ingress/ingress.yaml
-- ingress/secret.yaml
 - jobservice/jobservice-cm-env.yaml
 - jobservice/jobservice-cm.yaml
 - jobservice/jobservice-dpl.yaml

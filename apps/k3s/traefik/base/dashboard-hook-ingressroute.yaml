@@ -21,7 +21,7 @@ spec:
   - web
   - websecure
   routes:
-  - match: Host(`traefik.themachine`) && PathPrefix(`/dashboard`,`/api`)
+  - match: Host(`traefik.themachine`,`traefik-http`) && PathPrefix(`/dashboard`,`/api`)
     kind: Rule
     services:
     - name: api@internal

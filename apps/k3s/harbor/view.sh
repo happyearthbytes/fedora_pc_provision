@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-xdg-open http://core.harbor.themachine/
+xdg-open https://core.harbor.themachine/

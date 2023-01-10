@@ -37,7 +37,7 @@ spec:
         app.kubernetes.io/managed-by: Helm
     spec:
       serviceAccountName: traefik
-      terminationGracePeriodSeconds: 60
+      terminationGracePeriodSeconds: 5
       hostNetwork: false
       containers:
       - image: traefik:v2.9.6
@@ -116,6 +116,13 @@ spec:
           - "--accesslog=true"
           - "--accesslog.fields.defaultmode=keep"
           - "--accesslog.fields.headers.defaultmode=drop"
+          - "--certificatesresolvers.letsencrypt.acme.dnsChallenge.delayBeforeCheck=30"
+          - "--certificatesresolvers.letsencrypt.acme.dnsChallenge.provider=gcloud"
+          - "--certificatesresolvers.letsencrypt.acme.dnsChallenge.resolvers=1.1.1.1,8.8.8.8"
+          - "--certificatesresolvers.letsencrypt.acme.email=email@example.com"
+          - "--certificatesresolvers.letsencrypt.acme.httpChallenge.entryPoint=web"
+          - "--certificatesresolvers.letsencrypt.acme.storage=/data/acme.json"
+          - "--certificatesresolvers.letsencrypt.acme.tlsChallenge=true"
       volumes:
         - name: data
           emptyDir: {}

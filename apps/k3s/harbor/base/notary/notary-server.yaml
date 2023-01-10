@@ -26,8 +26,8 @@ spec:
         app: "harbor"
         component: notary-server
       annotations:
-        checksum/secret: 00d8135f16032b4e0c16f54c280595c6cc3deef8bbc744a8ec29a5933c4af22f
-        checksum/secret-core: 176e3ff58df38ea7df3755d2ff6700603e11e500f385573cbd72ee112173ec07
+        checksum/secret: ea3fcc48f26ed29a7652d3a737e2accb4de8c19c577dccb970734f44df462fe2
+        checksum/secret-core: 59bd48b78846688dc04ec5fa45de5641b62b740e94bc28b74a465e195c6e2e42
     spec:
       securityContext:
         runAsUser: 10000
