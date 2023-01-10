@@ -20,3 +20,7 @@ k3s-start: ## Start
 k3s-stop: ## Stop
 	@apps/k3s/scripts/k3s-stop.sh
 k3s-restart: k3s-stop k3s-start ## Restart
+k3s-generate-all: # generate all
+	@apps/k3s/scripts/k3s-generate-all.sh
+k3s-clean-all: # clean all
+	@apps/k3s/scripts/k3s-clean-all.sh

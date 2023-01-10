@@ -13,6 +13,14 @@ create_main_directory() {
     mkdir -p ${PROJECT}
     mkdir -p ${YAML_BASE}
     mkdir -p ${TMP_CHARTS}
+    if [ ! -f ${PROJECT}/.gitignore ]; then
+        cat <<EOF > ${PROJECT}/.gitignore
+base/*
+charts/*
+!.gitignore
+EOF
+    fi
+
     if [ ! -f ${PROJECT}/generate.sh ]; then
 
         cat <<EOF > ${PROJECT}/generate.sh
@@ -57,6 +65,7 @@ create_template() {
         echo "NOTE: Cleaning previous ${CHART_NAME}/base"
         rm -rf ${CHART_NAME}/base
     fi
+
 
     helm template \
       --include-crds \
@@ -160,11 +169,9 @@ k3s-${CHART_NAME}-stop: # Stop ${CHART_NAME}
 	@apps/k3s/${CHART_NAME}/stop.sh || true
 EOF
 
-# Add include to k3s.mak
-# include apps/k3s/keycloak/keycloak.mak
-
     fi
 
+    # Add include to k3s.mak
     local k3s_mak="scripts/k3s.mak"
     local include_string="include apps/k3s/${location}"
 
@@ -271,7 +278,7 @@ main() {
     download_chart
     create_template
     create_kustomization
-    remove_charts
+    # remove_charts
 }
 
 main "$@"
