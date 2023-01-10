@@ -192,7 +192,8 @@ _ROOT="../../.." _COMMON="scripts/libs/bash/common/common.sh"
 __THIS_PATH="\$( cd -- "\$(dirname "\${BASH_SOURCE[0]}")" >/dev/null 2>&1 || exit ; pwd -P )"
 __print_header
 __run_section \${__THIS_PATH}/generate.sh
-__run_section kubectl apply -k \${__THIS_PATH}
+__run_section kubectl apply \${__THIS_PATH}/namespace.yaml
+__run_section kubectl apply --namespace ${PROJECT} -k \${__THIS_PATH}
 
 EOF
 
@@ -210,7 +211,7 @@ _ROOT="../../.." _COMMON="scripts/libs/bash/common/common.sh"
 . \$( cd -- "\$(dirname "\${BASH_SOURCE[0]}")/\${_ROOT}" >/dev/null 2>&1 || exit ; pwd -P )/\${_COMMON}
 __THIS_PATH="\$( cd -- "\$(dirname "\${BASH_SOURCE[0]}")" >/dev/null 2>&1 || exit ; pwd -P )"
 __print_header
-__run_section kubectl delete -k \${__THIS_PATH}
+__run_section kubectl delete --namespace ${PROJECT} -k \${__THIS_PATH}
 EOF
 
         chmod +x ${location}
@@ -229,10 +230,29 @@ EOF
         echo "NOTE: Update ${location}"
     fi
 }
+create_namespace() {
+    local location=${PROJECT}/namespace.yaml
+    if [ ! -f ${location} ]; then
+
+        cat <<EOF > ${location}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ${PROJECT}
+  annotations:
+    generated: "true"
+  labels:
+    generated: "true"
+EOF
+
+    fi
+}
+
 create_kustomization() {
     kustomization_project
     kustomization_base
     kustomization_overlay
+    create_namespace
     start_sh
     stop_sh
     view_sh

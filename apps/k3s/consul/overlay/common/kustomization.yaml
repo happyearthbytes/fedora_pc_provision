@@ -1,0 +1,11 @@
+bases:
+- ../../base
+commonAnnotations:
+  note: generated
+commonLabels:
+  generated: "true"
+# resources:
+# - my-ingress.yaml
+# patchesStrategicMerge:
+# - patch1.yaml
+# https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/

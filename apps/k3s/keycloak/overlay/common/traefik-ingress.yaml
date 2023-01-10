@@ -33,7 +33,7 @@ spec:
   - websecure
   - web
   routes:
-  - match: Host(`keycloak.themachine`) || Host(`keycloak-http`)
+  - match: Host(`keycloak.themachine`)
     kind: Rule
     services:
     - name: keycloak-http
