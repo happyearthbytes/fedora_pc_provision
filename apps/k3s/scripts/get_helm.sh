@@ -58,29 +58,42 @@ create_template() {
         cp ${TMP_CHARTS}/${CHART_NAME}/values.yaml ${PROJECT}/
         echo "NOTE: Customize ${CHART_NAME}/values.yaml"
         echo "NOTE: To continue: ./${CHART_NAME}/generate.sh"
-        exit 0
+        # exit 0
     fi
 
-    if [ -d ${PROJECT}/base ]; then
-        echo "NOTE: Cleaning previous ${CHART_NAME}/base"
-        rm -rf ${CHART_NAME}/base
+    if [ -f ${PROJECT}/base/kustomization.yaml ]; then
+        mv ${CHART_NAME}/base ${CHART_NAME}/base.bak
     fi
 
-
+    echo "Generating helm template"
     helm template \
       --include-crds \
+      --create-namespace \
+      --namespace ${PROJECT} \
       --output-dir ${YAML_BASE} \
       --values ${PROJECT}/values.yaml \
       --wait \
       ${CHART_NAME} \
-      ${CHART_SELECTOR}/${CHART_NAME}
+      ${CHART_SELECTOR}/${CHART_NAME} > /dev/null
 
     mv ${YAML_BASE_TMP_PROJ}/templates/* ${YAML_BASE}
     rmdir ${YAML_BASE_TMP_PROJ}/templates
     mv ${YAML_BASE_TMP_PROJ}/crds ${YAML_BASE} > /dev/null 2>&1
     mv ${YAML_BASE_TMP_PROJ}/charts ${YAML_BASE} > /dev/null 2>&1
-    echo "Removing: $(find ${YAML_BASE_TMP_PROJ})"
+    echo "Removing $(find ${YAML_BASE_TMP_PROJ})"
     rm -rf ${YAML_BASE_TMP_PROJ}
+
+    kustomization_base
+
+    if [ -d ${PROJECT}/base.bak ]; then
+        diff -r ${CHART_NAME}/base.bak ${CHART_NAME}/base
+        echo "Removing previous ${CHART_NAME}/base"
+        rm -rf ${CHART_NAME}/base.bak
+    else
+        echo "Generating:"
+        find ${CHART_NAME}/base
+    fi
+
 }
 remove_charts() {
     echo "Removing: ${TMP_CHARTS}"
@@ -250,7 +263,6 @@ EOF
 
 create_kustomization() {
     kustomization_project
-    kustomization_base
     kustomization_overlay
     create_namespace
     start_sh
