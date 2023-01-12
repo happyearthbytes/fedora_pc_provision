@@ -180,6 +180,10 @@ k3s-${CHART_NAME}-start: # Start ${CHART_NAME}
 	@apps/k3s/${CHART_NAME}/start.sh
 k3s-${CHART_NAME}-stop: # Stop ${CHART_NAME}
 	@apps/k3s/${CHART_NAME}/stop.sh || true
+k3s-${CHART_NAME}-get: # get ${CHART_NAME}
+	@apps/k3s/${CHART_NAME}/get.sh || true
+k3s-${CHART_NAME}-watch: # watch ${CHART_NAME}
+	@apps/k3s/${CHART_NAME}/watch.sh || true
 EOF
 
     fi
@@ -194,6 +198,29 @@ EOF
         sed -i "1s|^|${include_string}\n|" ${k3s_mak}
     fi
 }
+select_sh() {
+    local location=${PROJECT}/select.sh
+    if [ ! -f ${location} ]; then
+
+        cat <<EOF > ${location}
+#!/usr/bin/env bash
+_ROOT="../../.." _COMMON="scripts/libs/bash/common/common.sh"
+. \$( cd -- "\$(dirname "\${BASH_SOURCE[0]}")/\${_ROOT}" >/dev/null 2>&1 || exit ; pwd -P )/\${_COMMON}
+__THIS_PATH="\$( cd -- "\$(dirname "\${BASH_SOURCE[0]}")" >/dev/null 2>&1 || exit ; pwd -P )"
+__print_header
+
+
+__run_section \${__THIS_PATH}/generate.sh
+__run_section kubectl apply -f \${__THIS_PATH}/namespace.yaml
+__run_section kubectl apply --namespace ${PROJECT} -k \${__THIS_PATH}
+
+EOF
+
+        chmod +x ${location}
+        echo "NOTE: To start: ./${PROJECT}/start.sh"
+    fi
+
+}
 start_sh() {
     local location=${PROJECT}/start.sh
     if [ ! -f ${location} ]; then
@@ -205,7 +232,7 @@ _ROOT="../../.." _COMMON="scripts/libs/bash/common/common.sh"
 __THIS_PATH="\$( cd -- "\$(dirname "\${BASH_SOURCE[0]}")" >/dev/null 2>&1 || exit ; pwd -P )"
 __print_header
 __run_section \${__THIS_PATH}/generate.sh
-__run_section kubectl apply \${__THIS_PATH}/namespace.yaml
+__run_section kubectl apply -f \${__THIS_PATH}/namespace.yaml
 __run_section kubectl apply --namespace ${PROJECT} -k \${__THIS_PATH}
 
 EOF
