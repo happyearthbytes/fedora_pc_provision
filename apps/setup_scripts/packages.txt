@@ -7,3 +7,4 @@ kernel-devel
 kernel-headers
 kernel-tools
 etcd
+python3-pip
