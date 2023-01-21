@@ -9,8 +9,9 @@ podman run -it --rm \
   --network host \
   --userns=keep-id \
   --secret sshkey,target=/ssh/id_rsa,mode=0600,uid=1000 \
+  --env ANSIBLE_CONFIG="/localhost/provision/ansible/ansible.cfg" \
   ansible ansible-playbook \
-  -i /localhost/ansible/inventories/production/hosts.yaml \
+  -i /localhost/provision/ansible/inventories/production/hosts.yaml \
   --user ${USER}\
   --ask-become-pass \
-  /localhost/ansible/playbooks/bootstrap.yaml
+  /localhost/provision/ansible/playbooks/bootstrap.yaml

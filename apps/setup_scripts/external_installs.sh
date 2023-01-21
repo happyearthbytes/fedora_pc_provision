@@ -54,7 +54,7 @@ service_running() {
     systemctl is-active $service > /dev/null
     local status=$?
     if [[ "${status}" == "0" ]]; then
-        echo "True"
+        echo "$service already running" 1>&2
     else
         echo "False"
     fi
@@ -112,16 +112,14 @@ start_k3s() {
 
 install_nvidia() {
     if [[ $(should_install_dnf nvidia-driver) == "True" ]]; then
-        # sudo dnf install -y akmod-nvidia xorg-x11-drv-nvidia-cuda
-
         # https://docs.nvidia.com/datacenter/tesla/tesla-installation-notes/index.html
+        # Note that the fedora37 repository does not exist at the time of writing this
         sudo dnf config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/fedora36/x86_64/cuda-fedora36.repo
         sudo dnf clean all
         sudo dnf -y module install --allowerasing nvidia-driver:latest-dkms
         sudo dnf -y install cuda
         add_bashrc "export PATH=/usr/local/cuda-12.0/bin${PATH:+:${PATH}}"
 
-        # Note that the fedora37 repository does not exist at the time of writing this
         # sudo rpm --erase gpg-pubkey-7fa2af80*
         # source /etc/os-release
         # distro=${ID}${VERSION_ID}
@@ -184,13 +182,13 @@ start_nvidia_k3s() {
         # kubectl describe node | grep gpu
     fi
 
-    if [[ $(service_running k3s) == "False" ]]; then
-        kubectl apply -f k3s/nvidia-namespace.yaml
+    if [[ $(service_running k3s) != "False" ]]; then
+        kubectl apply -f apps/k3s/nvidia/nvidia-namespace.yaml
 
         kubectl create cm -n nvidia-device-plugin nvidia-plugin-configs \
-            --from-file=config=k3s/nvidia/nvidia-config.yaml
+            --from-file=config=apps/k3s/nvidia/nvidia-config.yaml
 
-        kubectl apply -f k3s/nvidia/nvidia-device-plugin.yml
+        kubectl apply -f apps/k3s/nvidia/nvidia-device-plugin.yaml
 
         label_filter="owner=joe"
         node_name=$(kubectl get nodes -l ${label_filter} --no-headers=true -o custom-columns=NAME:.metadata.name)
@@ -217,14 +215,16 @@ start_nvidia_k3s() {
 # main
 ######
 
-INSTALL_NVIDIA=0
-
 
 install_common
 install_k3s
 start_k3s
 
+INSTALL_NVIDIA=1
 if [[ $INSTALL_NVIDIA == "1" ]]; then
-    install_nvidia
+    nvidia_installed=$(sudo systemctl list-unit-files | grep nvidia-persistenced -q; echo $?)
+    if [[ ${nvidia_installed} != "0" ]]; then
+        install_nvidia
+    fi
     start_nvidia_k3s
 fi

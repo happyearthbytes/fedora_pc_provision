@@ -5,5 +5,5 @@ flags:
   nvidiaDriverRoot: "/"
   plugin:
     passDeviceSpecs: false
-    deviceListStrategy: envvar
-    deviceIDStrategy: uuid
+    deviceListStrategy: "envvar"
+    deviceIDStrategy: "uuid"

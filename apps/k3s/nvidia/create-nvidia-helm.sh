@@ -4,4 +4,4 @@ helm template \
     nvidia-device-plugin \
     --namespace nvidia-device-plugin \
     --set runtimeClassName=nvidia \
-    nvidia-device-plugin/nvidia-device-plugin > nvidia-device-plugin.yml
+    nvidia-device-plugin/nvidia-device-plugin > nvidia-device-plugin.yaml

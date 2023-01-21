@@ -1,0 +1,5 @@
+- name: Playbook
+  hosts: local_machine
+  roles:
+    - common
+    - basic_linux_packages
