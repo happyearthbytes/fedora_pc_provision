@@ -1,0 +1,12 @@
+FROM auto_ui_install:latest as install
+ENV ROOT=/install
+
+COPY containers/auto_ui/* /docker/
+
+WORKDIR ${ROOT}
+ENV CLI_ARGS="--allow-code --medvram --xformers --enable-insecure-extension-access --api --ckpt /data/StableDiffusion/v1-5-pruned-emaonly.ckpt"
+EXPOSE 7860
+ENTRYPOINT ["/docker/entrypoint.sh"]
+RUN useradd -m stablediffusion -u 2000
+USER 2000
+CMD python3 -u webui.py --listen --port 7860 ${CLI_ARGS}

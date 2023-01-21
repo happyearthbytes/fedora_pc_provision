@@ -7,6 +7,7 @@ include scripts/make/basic.mak
 include scripts/make/extras.mak
 include provision/ansible/scripts/provision.mak
 include apps/k3s/scripts/k3s.mak
+include apps/stable-diffusion/scripts/stable-diffusion.mak
 
 .PHONY: help
 

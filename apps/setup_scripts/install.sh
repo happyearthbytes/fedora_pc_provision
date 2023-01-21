@@ -5,6 +5,7 @@ cd ${SCRIPT_DIR}/..
 packages=${SCRIPT_DIR}/packages.txt
 external=${SCRIPT_DIR}/external_installs.sh
 extra_setup=${SCRIPT_DIR}/extra_setup.sh
+pip_requirements=${SCRIPT_DIR}/pip_requirements.txt
 
 print_install() {
     echo "# ==============================================================================="
@@ -18,3 +19,5 @@ print_install "external packages"
 ${external}
 print_install "extra setup"
 ${extra_setup}
+print_install "pip"
+python3 -m pip install -r ${pip_requirements}
