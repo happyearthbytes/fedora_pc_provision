@@ -9,6 +9,9 @@ REMOTE_USER=ansible
 [ $(podman secret inspect sshpubkey > /dev/null 2>&1 ; echo $?) == "0" ] || sudo cat /home/${REMOTE_USER}/.ssh/id_rsa.pub | podman secret create sshpubkey -  > /dev/null
 [ $(podman secret inspect sshkey > /dev/null 2>&1 ; echo $?) == "0" ] || sudo cat /home/${REMOTE_USER}/.ssh/id_rsa | podman secret create sshkey - > /dev/null
 
+ANSIBLE_TAGS="all, print_info, print_debug"
+ANSIBLE_TAGS="all"
+
 podman run -it --rm \
   -v${__BASE_PATH}:/localhost \
   --network host \
@@ -18,8 +21,9 @@ podman run -it --rm \
   --env ANSIBLE_CONFIG="/localhost/provision/ansible/ansible.cfg" \
   ansible ansible-playbook \
   --ssh-extra-args='-o UserKnownHostsFile=/dev/null' \
-  /localhost/provision/ansible/playbooks/provision.yaml
-
+  --tags "${ANSIBLE_TAGS}" \
+ /localhost/provision/ansible/playbooks/provision.yaml
+ 
 # Remove secrets
 [ $(podman secret inspect sshpubkey > /dev/null; echo $?) != "0" ] || podman secret rm sshpubkey > /dev/null
 [ $(podman secret inspect sshkey > /dev/null; echo $?) != "0" ] || podman secret rm sshkey > /dev/null

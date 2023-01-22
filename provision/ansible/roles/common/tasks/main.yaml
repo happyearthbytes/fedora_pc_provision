@@ -1,15 +1,21 @@
-- name: Basic info
-  block:
-    - name: Task 1
-      shell: id
+- block:
+  - name: Get id
+    shell: id
+    changed_when: False
+    failed_when: False
+    register: result
+  - debug:
+      msg: "{{ result.stdout }}"
+    tags:
+      - never
+      - print_info
+  - block: 
+    - shell: env
+      register: result
       changed_when: False
-      failed_when: False
-    - name: Task 1
-      shell: env
-      changed_when: False
-      failed_when: False
-    - name: Task 2
-      shell: ip addr
-      changed_when: False
-      failed_when: False
+    - debug:
+        msg: "{{ result.stdout }}"
+    tags:
+      - never
+      - print_debug
   ignore_errors: true
