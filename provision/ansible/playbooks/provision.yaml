@@ -3,3 +3,8 @@
   roles:
     - common
     - basic_linux_packages
+    - install_rpm_fusion
+    - install_vscode
+    # - install_k3s
+    # - install_nvidia
+    # - install_nvidia_k3s

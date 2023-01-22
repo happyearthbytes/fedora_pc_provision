@@ -1,0 +1,16 @@
+
+- name: Get fedora version
+  shell: rpm -E %fedora
+  register: fedora_version
+  changed_when: False
+
+- name: Packages
+  set_fact:
+    dnf_packages:
+      - https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ fedora_version.stdout }}.noarch.rpm
+
+- name: Install packages
+  dnf:
+    name: "{{ dnf_packages }}"
+    state: present
+  become: true

@@ -1,11 +1,12 @@
 - block:
-  - name: Get id
-    shell: id
-    changed_when: False
-    failed_when: False
-    register: result
-  - debug:
-      msg: "{{ result.stdout }}"
+  - block:
+    - name: Get id
+      shell: id
+      changed_when: False
+      failed_when: False
+      register: result
+    - debug:
+        msg: "{{ result.stdout }}"
     tags:
       - never
       - print_info

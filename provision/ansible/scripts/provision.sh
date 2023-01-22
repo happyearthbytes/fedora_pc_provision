@@ -11,6 +11,8 @@ REMOTE_USER=ansible
 
 ANSIBLE_TAGS="all, print_info, print_debug"
 ANSIBLE_TAGS="all"
+VERBOSITY="-v"
+# VERBOSITY=""
 
 podman run -it --rm \
   -v${__BASE_PATH}:/localhost \
@@ -22,6 +24,7 @@ podman run -it --rm \
   ansible ansible-playbook \
   --ssh-extra-args='-o UserKnownHostsFile=/dev/null' \
   --tags "${ANSIBLE_TAGS}" \
+  ${VERBOSITY} \
  /localhost/provision/ansible/playbooks/provision.yaml
  
 # Remove secrets
