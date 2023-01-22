@@ -33,7 +33,7 @@
       # - etcd
     state: present
   become: true
-  remote_user: ansible
+  # remote_user: ansible
 
 
 
