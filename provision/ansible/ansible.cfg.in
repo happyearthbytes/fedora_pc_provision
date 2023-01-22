@@ -138,7 +138,7 @@ home=/tmp/.ansible
 ;hash_behaviour=replace
 
 # (pathlist) Comma separated list of Ansible inventory sources
-;inventory=/etc/ansible/hosts
+inventory=/etc/ansible/hosts, /localhost/provision/ansible/inventories/production/hosts.yaml
 
 # (pathspec) Colon separated paths in which Ansible will search for HttpApi Plugins.
 ;httpapi_plugins={{ ANSIBLE_HOME ~ "/plugins/httpapi:/usr/share/ansible/plugins/httpapi" }}
@@ -225,6 +225,7 @@ private_key_file=/ssh/id_rsa
 # (string) Sets the login user for the target machines
 # When blank it uses the connection plugin's default, normally the user currently executing Ansible.
 ;remote_user=
+remote_user=ansible
 
 # (pathspec) Colon separated paths in which Ansible will search for Roles.
 ;roles_path={{ ANSIBLE_HOME ~ "/roles:/usr/share/ansible/roles:/etc/ansible/roles" }}
@@ -296,6 +297,7 @@ verbosity=0
 # This setting defaults to False because there is a chance that you have sensitive values in your parameters and you do not want those to be printed.
 # If you set this to True you should be sure that you have secured your environment's stdout (no one can shoulder surf your screen and you aren't saving stdout to an insecure file) or made sure that all of your playbooks explicitly added the ``no_log: True`` parameter to tasks which have sensitive values See How do I keep secret data in my playbook? for more information.
 ;display_args_to_stdout=False
+display_args_to_stdout=True
 
 # (boolean) Toggle to control displaying skipped task/host entries in a task in the default callback
 ;display_skipped_hosts=True
@@ -405,6 +407,7 @@ host_key_checking=False
 
 # (boolean) Toggles the use of persistence for connections.
 ;use_persistent_connections=False
+use_persistent_connections=True
 
 # (bool) A toggle to disable validating a collection's 'metadata' entry for a module_defaults action group. Metadata containing unexpected fields or value types will produce a warning when this is True.
 ;validate_action_group_metadata=True
@@ -452,7 +455,7 @@ become_method=sudo
 
 # (string) The user your login/remote user 'becomes' when using privilege escalation, most systems will use 'root' when no user is specified.
 ;become_user=root
-become_user=ansible
+;become_user=ansible
 
 [persistent_connection]
 # (path) Specify where to look for the ansible-connection script. This location will be checked before searching $PATH.

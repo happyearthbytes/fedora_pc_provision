@@ -38,7 +38,7 @@
   #   known_hosts:
   #     path: /home/ansible/.ssh/known_hosts
   #     name: "{{ ansible_fqdn }}"
-  #     key: "{{ pub_key['content'] | b64decode }}"
+  #     key: "localhost {{ pub_key['content'] | b64decode }}"
   - name: Set authorized key
     authorized_key:
       user: ansible

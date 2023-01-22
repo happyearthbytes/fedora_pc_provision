@@ -4,30 +4,22 @@ __SCRIPT_PATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 || exit ; pwd -P )"
 __BASE_PATH="$( cd -- "${__SCRIPT_PATH}/../../.." >/dev/null 2>&1 || exit ; pwd -P )"
 cd ${__BASE_PATH}/provision/ansible
 
-# [ $(podman secret inspect sshkey > /dev/null; echo $?) == "0" ] || podman secret create sshkey ~/.ssh/id_rsa
-[ $(podman secret inspect sshkey > /dev/null; echo $?) == "0" ] || sudo cat /home/ansible/.ssh/id_rsa | podman secret create ansiblekey -
-# [ $(podman secret inspect ansiblekey > /dev/null; echo $?) == "0" ] || sudo cat /home/ansible/.ssh/id_rsa | podman secret create ansiblekey -
-  # --secret ansiblekey,target=/ansible_ssh/id_rsa,mode=0600,uid=1000 \
-  # --become-user=ansible \ in config
+# Add secrets
+REMOTE_USER=ansible
+[ $(podman secret inspect sshpubkey > /dev/null 2>&1 ; echo $?) == "0" ] || sudo cat /home/${REMOTE_USER}/.ssh/id_rsa.pub | podman secret create sshpubkey -  > /dev/null
+[ $(podman secret inspect sshkey > /dev/null 2>&1 ; echo $?) == "0" ] || sudo cat /home/${REMOTE_USER}/.ssh/id_rsa | podman secret create sshkey - > /dev/null
 
 podman run -it --rm \
   -v${__BASE_PATH}:/localhost \
   --network host \
   --userns=keep-id \
-  --secret sshkey,target=/ssh/id_rsa,mode=0600,uid=1000 \
+  --secret sshpubkey,target=/ssh/id_rsa.pub,mode=0600,uid=$(id -u) \
+  --secret sshkey,target=/ssh/id_rsa,mode=0600,uid=$(id -u) \
   --env ANSIBLE_CONFIG="/localhost/provision/ansible/ansible.cfg" \
   ansible ansible-playbook \
-  -i /localhost/provision/ansible/inventories/production/hosts.yaml \
-  -u ansible \
+  --ssh-extra-args='-o UserKnownHostsFile=/dev/null' \
   /localhost/provision/ansible/playbooks/provision.yaml
 
-# podman run -it --rm \
-#   -v${__BASE_PATH}:/localhost \
-#   --network host \
-#   --userns=keep-id \
-#   --secret sshkey,target=/ssh/id_rsa,mode=0600,uid=1000 \
-#   --env ANSIBLE_CONFIG="/localhost/provision/ansible/ansible.cfg" \
-#   ansible ansible-playbook \
-#   -i /localhost/provision/ansible/inventories/production/hosts.yaml \
-#   --user ansible \
-#   /localhost/provision/ansible/playbooks/provision.yaml
+# Remove secrets
+[ $(podman secret inspect sshpubkey > /dev/null; echo $?) != "0" ] || podman secret rm sshpubkey > /dev/null
+[ $(podman secret inspect sshkey > /dev/null; echo $?) != "0" ] || podman secret rm sshkey > /dev/null
