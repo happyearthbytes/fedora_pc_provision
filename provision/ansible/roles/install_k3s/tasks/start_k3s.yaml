@@ -1,19 +1,8 @@
-- name: DNF packages
-  set_fact:
-    dnf_packages:
-      - vim
-      - google-chrome-stable
-      - git
-      - openssl
-      - containerd
-      - kernel-devel
-      - kernel-headers
-      - kernel-tools
-      - etcd
-      - python3-pip
 
-- name: Install dnf packages
-  dnf:
-    name: "{{ dnf_packages }}"
-    state: present
-  become: true
+
+        sudo systemctl start k3s
+        # sudo systemctl enable k3s
+        sleep 1
+        mkdir -p ~/.kube
+        kubectl config view --raw > ~/.kube/config
+        chmod 600 ~/.kube/config

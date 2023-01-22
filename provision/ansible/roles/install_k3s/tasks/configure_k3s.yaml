@@ -1,0 +1,14 @@
+
+    # https://docs.k3s.io/advanced#red-hat-enterprise-linux--centos
+    sudo systemctl disable firewalld --now
+
+    # Set defaults
+    sudo mkdir -p /var/lib/rancher/k3s/agent/etc/containerd/
+    sudo mkdir -p /etc/containerd/
+    containerd config default | sudo tee /var/lib/rancher/k3s/agent/etc/containerd/config.toml 2>&1 > /dev/null
+    containerd config default | sudo tee /etc/containerd/config.toml 2>&1 > /dev/null
+    # Copy the template
+    sudo cp k3s/config.toml.tmpl /var/lib/rancher/k3s/agent/etc/containerd/
+    sudo cp k3s/config.toml.tmpl /etc/containerd/
+
+    sudo cp k3s/registries.yaml /etc/rancher/k3s/

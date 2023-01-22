@@ -1,0 +1,48 @@
+@startuml
+
+actor User
+participant "Curl\nscript" as curl
+participant "Clone\nrepository" as clone
+participant "Run\nprovision\nscript" as provision
+participant "Run\nansible\nin\npodman" as ansible
+participant "Run\nstart\ncommand" as run_start
+participant "Start\nkubernetes" as k3s_start
+participant "Run\nservice\ncommands" as run_service
+participant "Run\nkubernetes\nservice" as service_start
+
+'... after repo cloned ...
+
+
+== Clone ==
+
+User o-> curl ++ : curl [manual]
+curl -> clone ** : runs
+clone --> provision ** : Creates
+provision --> ansible ** : Contains
+clone --> run_start ** : Creates
+run_start --> k3s_start ** : Contains
+clone --> run_service ** : Creates
+run_service --> service_start ** : Contains
+
+== Install ==
+
+curl -> provision --++ : runs
+provision -> ansible : starts
+activate ansible
+ansible -> ansible : installs k3s
+deactivate ansible
+
+== Start ==
+
+provision --> run_start --++ : starts [optional]
+User o-> run_start : commands [manual]
+run_start -> k3s_start --++ : runs
+
+== Services ==
+
+User o-> run_service ++ : commands [manual]
+run_service -> service_start --++ : runs
+|||
+== Operating ==
+
+@enduml
