@@ -10,9 +10,6 @@ participant "Start\nkubernetes" as k3s_start
 participant "Run\nservice\ncommands" as run_service
 participant "Run\nkubernetes\nservice" as service_start
 
-'... after repo cloned ...
-
-
 == Clone ==
 
 User o-> curl ++ : curl [manual]
@@ -45,4 +42,3 @@ run_service -> service_start --++ : runs
 |||
 == Operating ==
 
-@enduml

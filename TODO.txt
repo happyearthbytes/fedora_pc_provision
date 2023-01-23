@@ -32,3 +32,11 @@
   https://www.techrepublic.com/article/how-to-deploy-coreos-as-a-virtual-machine/
 [] Consider using Butane / Ignition for provisioning
 [] add rancher web ui
+[] Create a plantuml logger python package that classes can implement or inherit from -
+  e.g. user = puml(); core = puml(); service = puml()
+    user.create(core);
+    core.activate();
+    core.do(to=service, "Send Message")
+    service.act("Proces data")
+    service.do(to=core, "Done")
+    core.deactivate();
