@@ -1,0 +1,35 @@
+- name: download_from_git
+  containers.podman.podman_container:
+    name: k3s-ansible-git
+    state: started
+    image: docker.io/alpine/git
+    command: clone https://github.com/k3s-io/k3s-ansible
+    volume:
+      - /git
+
+- name: Create temporary dir
+  tempfile:
+    state: directory
+    prefix: "ansible.git."
+    suffix: ".k3s"
+  register: tempfile
+
+- name: copy_from_git
+  containers.podman.podman_container:
+    name: copy_k3s
+    state: started
+    image: docker.io/alpine
+    command: cp -r /git /build
+    rm: true
+    detach: false
+    userns: keep-id
+    volumes_from:
+      - k3s-ansible-git
+    volumes:
+      - "{{ tempfile.path }}:/build:Z"
+
+- name: temp
+  shell: ls {{ tempfile.path }}
+
+- name: temp
+  shell: echo {{ inventory_dir }}

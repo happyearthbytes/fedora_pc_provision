@@ -5,4 +5,15 @@ all:
     local_machine:
       hosts:
         localhost
+    master:
+      hosts:
+        localhost
+    node:
+      hosts:
+        localhost
+    k3s_cluster:
+      children:
+        hosts:
+          master:
+          node:
   
