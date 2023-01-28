@@ -2,7 +2,7 @@
 _ROOT="../../.." _COMMON="scripts/libs/bash/common/common.sh"
 . $( cd -- "$(dirname "${BASH_SOURCE[0]}")/${_ROOT}" >/dev/null 2>&1 || exit ; pwd -P )/${_COMMON}
 
-[ $(podman secret inspect sshpubkey > /dev/null 2>&1 ; echo $?) == "0" ] || podman secret create sshkey ~/.ssh/id_rsa.pub
+[ $(podman secret inspect sshpubkey > /dev/null 2>&1 ; echo $?) == "0" ] || podman secret create sshpubkey ~/.ssh/id_rsa.pub
 [ $(podman secret inspect sshkey > /dev/null 2>&1 ; echo $?) == "0" ] || podman secret create sshkey ~/.ssh/id_rsa
 
 podman run -it --rm \

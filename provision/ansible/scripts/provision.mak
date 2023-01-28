@@ -1,16 +1,23 @@
 .PHONY: provision
 
-provision: ## Provision
+THIS_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+REL_DIR:=$(shell dirname $(realpath $(THIS_DIR)/.))
+
+provision: provision-configure_ansible_user ## Provision
 	@./provision/ansible/scripts/provision.sh
-provision-test: # Test Provision
-	@./provision/ansible/scripts/test.sh
-provision-build: # Provision build image
-	@./provision/ansible/scripts/build.sh
-provision-init: # Provision init
-	@./provision/ansible/scripts/init.sh
+provision-build_ansible_image: # Provision build_ansible_image
+	@./provision/ansible/scripts/build_ansible_image.sh
+provision-create_default_config_template: ${REL_DIR}/ansible.cfg.in # Provision create_default_config_template
+${REL_DIR}/ansible.cfg.in:
+	@./provision/ansible/scripts/create_default_config_template.sh
+provision-generate_config_file: provision-create_default_config_template # Provision generate_config_file
+	@./provision/ansible/scripts/generate_config_file.sh
+provision-configure_ansible_user: /home/ansible # configure_ansible_user
+/home/ansible:
+	@./provision/ansible/scripts/configure_ansible_user.sh
+
+
 provision-view-config: provision-generate # view ansible config
 	@./provision/ansible/scripts/view_config.sh
-provision-generate: # Provision generate
-	@./provision/ansible/scripts/generate.sh
-provision-bootstrap: # bootstrap
-	@./provision/ansible/scripts/bootstrap.sh
+provision-test: # Test Provision
+	@./provision/ansible/scripts/test.sh
