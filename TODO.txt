@@ -9,6 +9,7 @@
 [S] Add Prometheus
 [S] Add Grafana
 [S] Artifactory
+[] research k3sup - https://github.com/alexellis/k3sup
 [] Research Rook
 [] update gRPC
 [] use Istio
