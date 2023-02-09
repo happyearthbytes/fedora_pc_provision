@@ -12,7 +12,7 @@
 [] Research Rook
 [] update gRPC
 [] use Istio
-[] Consider Rancher interface
+[] Consider Rancher interface - https://vmguru.com/2021/04/how-to-install-rancher-on-k3s/
 [] Use opentelemetry
 [] Compare Thanos
 [] SonarQube
